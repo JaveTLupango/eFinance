@@ -12,6 +12,12 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
 import { SystemMaintinanceComponent } from './error/system-maintinance/system-maintinance.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { SalaryComponent } from './Income/salary/salary.component';
+import { BillingComponent } from './Expenses/billing/billing.component';
+import { TransfortationComponent } from './Expenses/transfortation/transfortation.component';
+import { InvestPropertyComponent } from './InvestSavings/invest-property/invest-property.component';
+import { InvestInsuranceComponent } from './InvestSavings/invest-insurance/invest-insurance.component';
+import { EmergencyFundComponent } from './InvestSavings/emergency-fund/emergency-fund.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import { HeaderComponent } from './shared/header/header.component';
     PageNotFoundComponent,
     SystemMaintinanceComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    SalaryComponent,
+    BillingComponent,
+    TransfortationComponent,
+    InvestPropertyComponent,
+    InvestInsuranceComponent,
+    EmergencyFundComponent
   ],
   imports: [
     BrowserModule,
