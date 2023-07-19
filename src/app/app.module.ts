@@ -10,6 +10,8 @@ import { ForgotpasswordComponent } from './auth/forgotpassword/forgotpassword.co
 import { MfaVerificationComponent } from './auth/mfa-verification/mfa-verification.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { SystemMaintinanceComponent } from './error/system-maintinance/system-maintinance.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { SystemMaintinanceComponent } from './error/system-maintinance/system-ma
     ForgotpasswordComponent,
     MfaVerificationComponent,
     PageNotFoundComponent,
-    SystemMaintinanceComponent
+    SystemMaintinanceComponent,
+    SidebarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
