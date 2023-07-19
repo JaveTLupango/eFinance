@@ -4,11 +4,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ForgotpasswordComponent } from './auth/forgotpassword/forgotpassword.component';
+import { MfaVerificationComponent } from './auth/mfa-verification/mfa-verification.component';
+import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { SystemMaintinanceComponent } from './error/system-maintinance/system-maintinance.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotpasswordComponent,
+    MfaVerificationComponent,
+    PageNotFoundComponent,
+    SystemMaintinanceComponent
   ],
   imports: [
     BrowserModule,
