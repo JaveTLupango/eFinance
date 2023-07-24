@@ -9,10 +9,11 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
 const routes: Routes = [
   // homepage route
  { path: '' , component:HomeComponent},
- { path: '**' , component:PageNotFoundComponent},
  { path: 'login' , component:LoginComponent},
  { path: 'register' , component:RegisterComponent},
- { path: 'forgotpassword' , component:ForgotpasswordComponent}];
+ { path: 'forgotpassword' , component:ForgotpasswordComponent},
+ { path: '**' , component:PageNotFoundComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
