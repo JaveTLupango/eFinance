@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotpasswordComponent } from './auth/forgotpassword/forgotpassword.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { SalaryComponent } from './Income/salary/salary.component';
 
 const routes: Routes = [
   // homepage route
@@ -12,6 +13,7 @@ const routes: Routes = [
  { path: 'login' , component:LoginComponent},
  { path: 'register' , component:RegisterComponent},
  { path: 'forgotpassword' , component:ForgotpasswordComponent},
+ { path: 'income-salary' , component:SalaryComponent},
  { path: '**' , component:PageNotFoundComponent}
 ];
 
@@ -20,3 +22,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+//income-salary
