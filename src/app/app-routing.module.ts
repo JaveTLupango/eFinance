@@ -6,6 +6,9 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ForgotpasswordComponent } from './auth/forgotpassword/forgotpassword.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { SalaryComponent } from './Income/salary/salary.component';
+import { BillingComponent } from './Expenses/billing/billing.component';
+import { TransfortationComponent } from './Expenses/transfortation/transfortation.component';
+import { OtherExpComponent } from './Expenses/other-exp/other-exp.component';
 
 const routes: Routes = [
   // homepage route
@@ -14,6 +17,9 @@ const routes: Routes = [
  { path: 'register' , component:RegisterComponent},
  { path: 'forgotpassword' , component:ForgotpasswordComponent},
  { path: 'income-salary' , component:SalaryComponent},
+ { path: 'expenses-billing' , component:BillingComponent},
+ { path: 'expenses-transportation' , component:TransfortationComponent},
+ { path: 'others-expenses' , component:OtherExpComponent},
  { path: '**' , component:PageNotFoundComponent}
 ];
 
@@ -23,4 +29,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-//income-salary
+//expenses-transportation

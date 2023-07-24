@@ -18,6 +18,7 @@ import { TransfortationComponent } from './Expenses/transfortation/transfortatio
 import { InvestPropertyComponent } from './InvestSavings/invest-property/invest-property.component';
 import { InvestInsuranceComponent } from './InvestSavings/invest-insurance/invest-insurance.component';
 import { EmergencyFundComponent } from './InvestSavings/emergency-fund/emergency-fund.component';
+import { OtherExpComponent } from './Expenses/other-exp/other-exp.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EmergencyFundComponent } from './InvestSavings/emergency-fund/emergency
     TransfortationComponent,
     InvestPropertyComponent,
     InvestInsuranceComponent,
-    EmergencyFundComponent
+    EmergencyFundComponent,
+    OtherExpComponent
   ],
   imports: [
     BrowserModule,

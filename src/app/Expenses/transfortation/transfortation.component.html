@@ -1,1 +1,53 @@
-<p>transfortation works!</p>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Transfortation Expenses</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Expenses</li>
+                <li class="breadcrumb-item active">Transfortation</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Transfortation Form</h5>
+                        <!-- Vertical Form -->
+                        <form class="row g-3">
+                            <div class="col-12">
+                                <label for="inputAmount" class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="inputAmount">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="inputDate">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputNotes" class="form-label">Notes</label>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
+                                    <label for="floatingTextarea">Notes</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputIMG" class="form-label">Attach Image</label>
+                                <input type="file" class="form-control" id="inputIMG">
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                        <!-- Vertical Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!-- End #main -->
