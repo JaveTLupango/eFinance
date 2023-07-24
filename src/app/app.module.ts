@@ -19,6 +19,9 @@ import { InvestPropertyComponent } from './InvestSavings/invest-property/invest-
 import { InvestInsuranceComponent } from './InvestSavings/invest-insurance/invest-insurance.component';
 import { EmergencyFundComponent } from './InvestSavings/emergency-fund/emergency-fund.component';
 import { OtherExpComponent } from './Expenses/other-exp/other-exp.component';
+import { SystemSettingsComponent } from './systemAdmin/system-settings/system-settings.component';
+import { AccessPolicyComponent } from './systemAdmin/access-policy/access-policy.component';
+import { ListOfUsersComponent } from './systemAdmin/list-of-users/list-of-users.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { OtherExpComponent } from './Expenses/other-exp/other-exp.component';
     InvestPropertyComponent,
     InvestInsuranceComponent,
     EmergencyFundComponent,
-    OtherExpComponent
+    OtherExpComponent,
+    SystemSettingsComponent,
+    AccessPolicyComponent,
+    ListOfUsersComponent
   ],
   imports: [
     BrowserModule,
