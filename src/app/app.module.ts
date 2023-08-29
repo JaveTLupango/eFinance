@@ -22,6 +22,8 @@ import { OtherExpComponent } from './Expenses/other-exp/other-exp.component';
 import { SystemSettingsComponent } from './systemAdmin/system-settings/system-settings.component';
 import { AccessPolicyComponent } from './systemAdmin/access-policy/access-policy.component';
 import { ListOfUsersComponent } from './systemAdmin/list-of-users/list-of-users.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ListOfUsersComponent } from './systemAdmin/list-of-users/list-of-users.
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -24,8 +24,17 @@ export class AppComponent {
           {
             this.isHeaderShow = false;
           }
-          else{
+          else
+          {
             this.isHeaderShow = true;
+            if(localStorage.getItem('AuthToken') != null)
+            {
+              this.isLogin = true;
+            }
+            else
+            {
+              this.isLogin = false;
+            }
           }
         }
       }
