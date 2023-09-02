@@ -12,8 +12,6 @@ export class LoginServiceService {
 
   login(formValueLogin : Login, baseurl : BaseURL)
   {
-      console.log(formValueLogin.email);
-      console.log(baseurl.url_api+'/login/user');
       return this.http.post<any>(baseurl.url_api+'/login/user', formValueLogin);
   }
 

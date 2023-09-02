@@ -16,6 +16,15 @@ export class AppComponent {
 
   constructor(private router: Router)
   {
+
+      console.log(localStorage.getItem('AuthToken'));
+
+      if(localStorage.getItem('AuthToken') === null)
+      {        
+        this.router.navigate(['/login']);
+      }
+
+
       router.events.subscribe((val)=>
       {
         if(val instanceof NavigationEnd)
