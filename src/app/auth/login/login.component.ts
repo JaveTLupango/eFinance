@@ -7,6 +7,7 @@ import { Login } from 'src/app/shared/model/login.model';
 import { BaseURL } from 'src/app/shared/model/base/base-url.model';
 import { LoginServiceService } from 'src/app/shared/Services/login-service.service';
 import Swal from 'sweetalert2';
+import { Users } from 'src/app/shared/model/user/users.model';
 
 
 @Component({
@@ -15,19 +16,20 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  
+
   constructor(private router: Router, private http: HttpClient){}
 
-  appC : AppComponent = new AppComponent(this.router);
+  appC : AppComponent = new AppComponent(this.router, this.http);
   loginService : LoginServiceService = new LoginServiceService(this.http);
   formValueLogin : Login = new Login;
   baseURL : BaseURL = new BaseURL;
   email: string = '';
   password: string = '';
+  userModel : Users = new Users();
 
   ngOnInit()
-  {    
-    var isLogin = this.appC.isLogin;        
+  {
+    var isLogin = this.appC.isLogin;
     console.log(isLogin);
     if(isLogin)
     {
@@ -41,14 +43,19 @@ export class LoginComponent {
     console.log(this.password);
     this.formValueLogin.email = this.email;
     this.formValueLogin.password = this.password;
-    
+
     this.loginService.login(this.formValueLogin, this.baseURL).subscribe(
       data =>
       {
         if(data.StatusCode == 200)
         {
+          debugger;
+          console.log(data);
+          localStorage.setItem('Login', data);
           localStorage.setItem('AuthToken', data.token);
-          localStorage.setItem('UsersInfo', data.data);   
+          this.userModel = data.data;          
+          localStorage.setItem('UserInfo', JSON.stringify(this.userModel));
+
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -58,8 +65,8 @@ export class LoginComponent {
           });
           this.router.navigate(['']);
         }
-        else{        
-            localStorage.clear(); 
+        else{
+            localStorage.clear();
             Swal.fire(
               'Login Failed!',
               data.message,
@@ -73,9 +80,9 @@ export class LoginComponent {
           error.message,
           'warning'
         )
-      }      
+      }
     );
-    
+
   }
 
 }

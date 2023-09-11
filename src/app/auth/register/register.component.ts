@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class RegisterComponent {
 
   constructor(private router: Router, private http: HttpClient){}
-  appC : AppComponent = new AppComponent(this.router);
+  appC : AppComponent = new AppComponent(this.router, this.http);
   registerModel : RegisterModel = new RegisterModel();
   RegisterSS : RegisterServiceService = new  RegisterServiceService(this.http);
   baseurl : BaseURL = new BaseURL()
