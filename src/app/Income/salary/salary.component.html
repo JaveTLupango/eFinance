@@ -17,40 +17,37 @@
                     <div class="card-body">
                         <h5 class="card-title">Salary Form</h5>
                         <!-- Vertical Form -->
-                        <form class="row g-3">
+                        <form class="row g-3" #salaryForm="ngForm" (ngSubmit)="onSubmit()">
                             <div class="col-12">
-                                <label for="inputNanme4" class="form-label">Source</label>
-                                <select id="inputState" class="form-select">
-                                  <option selected>Salary (FJ)</option>
-                                  <option >Salary (FJ1)</option>
-                                  <option >Others</option>
+                                <label for="source" class="form-label">Source</label>
+                                <select id="source" class="form-select" [(ngModel)]="salaryModel.source" name="source">
+                                  <option selected value="Salary (FJ)">Salary (FJ)</option>
+                                  <option value="Others">Others</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label for="inputAmount" class="form-label">Amount</label>
-                                <input type="number" class="form-control" id="inputAmount">
+                                <label for="amount" class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="amount" [(ngModel)]="salaryModel.amount" name="amount">
                             </div>
                             <div class="col-12">
-                                <label for="inputDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="inputDate">
-                            </div>
-                            <div class="col-12">
-                                <label for="inputNotes" class="form-label">Notes</label>
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
-                                    <label for="floatingTextarea">Notes</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="inputIMG" class="form-label">Attach Image</label>
-                                <input type="file" class="form-control" id="inputIMG">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="date" [(ngModel)]="salaryModel.date" name="date">
                             </div>
                             <div class="">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                         <!-- Vertical Form -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Salary Form</h5>
+                        <!-- Vertical Form -->
 
+                        <!-- Vertical Form -->
                     </div>
                 </div>
             </div>

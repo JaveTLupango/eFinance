@@ -24,7 +24,7 @@ export class AppComponent {
   
   constructor(private router: Router, private http: HttpClient)
   {
-    // console.log(localStorage.getItem('AuthToken'));
+     console.log(localStorage.getItem('AuthToken'));
     // console.log(localStorage.getItem('UserInfo'));
     var um  = localStorage.getItem('UserInfo');
     let um2 = JSON.parse(JSON.stringify(um));
