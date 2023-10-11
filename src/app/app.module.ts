@@ -24,6 +24,13 @@ import { AccessPolicyComponent } from './systemAdmin/access-policy/access-policy
 import { ListOfUsersComponent } from './systemAdmin/list-of-users/list-of-users.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UserSavingsComponent } from './Banking/user-savings/user-savings.component';
+import { UserCreateSavingsRequestComponent } from './Banking/user-create-savings-request/user-create-savings-request.component';
+import { UsersLoansComponent } from './Banking/users-loans/users-loans.component';
+import { UsersCreateLoanRequestComponent } from './Banking/users-create-loan-request/users-create-loan-request.component';
+import { UserDashboardComponent } from './Banking/user-dashboard/user-dashboard.component';
+import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -46,15 +53,21 @@ import { HttpClientModule } from '@angular/common/http';
     OtherExpComponent,
     SystemSettingsComponent,
     AccessPolicyComponent,
-    ListOfUsersComponent
+    ListOfUsersComponent,
+    UserSavingsComponent,
+    UserCreateSavingsRequestComponent,
+    UsersLoansComponent,
+    UsersCreateLoanRequestComponent,
+    UserDashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule 
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

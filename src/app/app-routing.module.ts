@@ -12,6 +12,10 @@ import { OtherExpComponent } from './Expenses/other-exp/other-exp.component';
 import { InvestPropertyComponent } from './InvestSavings/invest-property/invest-property.component';
 import { InvestInsuranceComponent } from './InvestSavings/invest-insurance/invest-insurance.component';
 import { EmergencyFundComponent } from './InvestSavings/emergency-fund/emergency-fund.component';
+import { UserSavingsComponent } from './Banking/user-savings/user-savings.component';
+import { UsersLoansComponent } from './Banking/users-loans/users-loans.component';
+import { UserCreateSavingsRequestComponent } from './Banking/user-create-savings-request/user-create-savings-request.component';
+import { UsersCreateLoanRequestComponent } from './Banking/users-create-loan-request/users-create-loan-request.component';
 
 const routes: Routes = [
   // homepage route
@@ -26,6 +30,10 @@ const routes: Routes = [
  { path: 'invest-property' , component:InvestPropertyComponent},
  { path: 'invest-insurance' , component:InvestInsuranceComponent},
  { path: 'emergency-fund' , component:EmergencyFundComponent},
+ { path: 'user-savings' , component:UserSavingsComponent},
+ { path: 'user-loans' , component:UsersLoansComponent},
+ { path: 'user-create-savings' , component:UserCreateSavingsRequestComponent},
+ { path: 'user-create-loans' , component:UsersCreateLoanRequestComponent},
 
 
 

@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+    role : any = localStorage.getItem('UserRole');
+    userRole : boolean= false;
+    ngOnInit()
+    {
+      this.userRole = this.role == 1 ? true : false;
+    }
 }

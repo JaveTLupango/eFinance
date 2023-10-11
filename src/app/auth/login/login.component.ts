@@ -56,6 +56,7 @@ export class LoginComponent {
           this.userModel = data.data;          
           localStorage.setItem('UserInfo', JSON.stringify(this.userModel));
           localStorage.setItem('UserId', data.data.id);
+          localStorage.setItem('UserRole', data.data.user_role);
 
           Swal.fire({
             position: 'top-end',

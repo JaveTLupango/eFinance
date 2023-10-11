@@ -23,10 +23,13 @@ export class HeaderComponent {
   appC : AppComponent = new AppComponent(this.router, this.http);
   logoutSS: LogoutService = new LogoutService(this.http, this.router);
   sideBarHS : boolean = true;
+  role : any = localStorage.getItem('UserRole');
+  userRole : boolean= false;
 
   ngOnInit()
   {
     this.UserModel = this.appC.UserModel;
+    this.userRole = this.role == 1 ? true : false;
   }
 
   logout()

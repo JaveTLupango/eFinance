@@ -1,0 +1,118 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Savings</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Savings</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Account Request</h5>
+                        <form class="row g-3" #accountRequestForm="ngForm" (ngSubmit)="onSubmit()">
+                            <div class="col-12">
+                                <label for="accountName" class="form-label">Savings Account Name</label>
+                                <input type="text" class="form-control" name="accountName" [(ngModel)]="accountSavingsRequest.accountName" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="targetMonthlyContribution" class="form-label">Target Monthly Contribution</label>
+                                <select id="targetMonthlyContribution" class="form-select" name="source" [(ngModel)]="accountSavingsRequest.targetMonthlyContribution">
+                            <option selected value="200">200</option>
+                            <option  value="400">400</option>
+                            <option  value="600">600</option>
+                            <option  value="800">800</option>
+                            <option  value="1000">1000</option>
+                            <option  value="2000">2000</option>
+                          </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="monthlyTerm" class="form-label">Monthly Term</label>
+                                <select id="monthlyTerm" class="form-select" name="source" [(ngModel)]="accountSavingsRequest.monthlyTerm">
+                            <option selected value="4">Weekly - (Sat)</option>
+                            <option  value="2">Semi Monthly (15th & 30th)</option>
+                            <option  value="1">Monthly (30th)</option>
+                          </select>
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <!-- <button type="reset" class="btn btn-secondary">Reset</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" *ngIf="accountSavingsRequestModel.accountName != ''">
+                        <h5 class="card-title">Contribution Breakdown</h5>
+                        <!-- Default Table -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Term</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listContributionBreakdown">
+                                    <th scope="row">{{ item.Id }}</th>
+                                    <td>{{ item.Term }}</td>
+                                    <td>{{ item.Amount }}</td>
+                                    <td>{{ item.dueDate | date:'MM/dd/yyyy'}}</td>
+                                    <td><span class="badge bg-success-light">Paid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Default Table Example -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body" *ngIf="accountSavingsRequestModel.accountName != ''">
+                        <h5 class="card-title">Savings Account Request</h5>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="inputNanme4" class="form-label">Savings Account Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.accountName" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputEmail4" class="form-label">Target Monthly Contribution</label>
+                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.targetMonthlyContribution" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Monthly Term</label>
+                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.monthlyTerm" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Expected Amount Per Term</label>
+                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.expectedAmountPerTerm" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Grace Period</label>
+                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.gracePeriod" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Extention Fee Per Day</label>
+                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.extentionFeePerDay" disabled>
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>

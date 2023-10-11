@@ -5,6 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
-
+export class SidebarComponent {    
+  role : any = localStorage.getItem('UserRole');
+  userRole : boolean= false;
+  ngOnInit()
+  {
+    this.userRole = this.role == 1 ? true : false;
+  }
 }

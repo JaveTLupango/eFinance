@@ -21,21 +21,15 @@ export class AppComponent {
   UserModel : Users = new Users();
   baseurl : BaseURL = new BaseURL();
   sideBarHS : boolean = false;
-  
+
   constructor(private router: Router, private http: HttpClient)
   {
-     console.log(localStorage.getItem('AuthToken'));
-    // console.log(localStorage.getItem('UserInfo'));
+    console.log(localStorage.getItem('AuthToken'));
+    console.log(localStorage.getItem('UserInfo'));
+    console.log(localStorage.getItem('UserRole'));
     var um  = localStorage.getItem('UserInfo');
     let um2 = JSON.parse(JSON.stringify(um));
     this.UserModel = JSON.parse(um2);
-    
-
-      if(localStorage.getItem('AuthToken') === null)
-      {
-        this.router.navigate(['/login']);
-      }
-
 
       router.events.subscribe((val)=>
       {
@@ -56,7 +50,14 @@ export class AppComponent {
             {
               this.isLogin = false;
             }
+            
+            if(localStorage.getItem('AuthToken') === null)
+            {
+              this.router.navigate(['/login']);
+            }
           }
+
+          
         }
       }
       );
@@ -69,15 +70,15 @@ export class AppComponent {
     this.logoutSS.logout(this.baseurl)
     .then(response => response.text())
     .then(result => {
-      console.log(result);        
-      localStorage.clear(); 
+      console.log(result);
+      localStorage.clear();
         Swal.fire(
               'User Logout!',
               "Users successfully logout",
               'success'
-            );            
+            );
             window.location.reload();
-    }  
+    }
     )
     .catch(error => {
       Swal.fire(
@@ -86,7 +87,7 @@ export class AppComponent {
               'warning'
             )
     }); ;
-    
+
   }
 
   sidebarHideShow()
