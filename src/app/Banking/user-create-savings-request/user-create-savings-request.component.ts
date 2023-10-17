@@ -18,17 +18,29 @@ export class UserCreateSavingsRequestComponent {
 
     onSubmit()
     {
-      debugger
+        this.listContributionBreakdown = [];
         this.accountSavingsRequestModel = this.accountSavingsRequest;
         console.log(this.accountSavingsRequestModel );
         console.log(this.accountSavingsRequest );
         this.accountSavingsRequestModel.expectedAmountPerTerm = this.accountSavingsRequestModel.targetMonthlyContribution / this.accountSavingsRequestModel.monthlyTerm;
         this.accountSavingsRequestModel.gracePeriod = 3;
         this.accountSavingsRequestModel.extentionFeePerDay = 10;
+        if(this.accountSavingsRequestModel.monthlyTerm == 4)
+        {
+          this.listContributionBreakdown = this.bdcService.weekly(this.accountSavingsRequestModel);
+        }
+        else if(this.accountSavingsRequestModel.monthlyTerm == 2)
+        {
+          this.listContributionBreakdown = this.bdcService.semiMonthly(this.accountSavingsRequestModel);
+        }
+        else{
+          this.listContributionBreakdown = this.bdcService.monthly(this.accountSavingsRequestModel);
+        }
+    }
 
-        this.listContributionBreakdown = this.bdcService.weekly(this.accountSavingsRequestModel);
-        console.log(this.listContributionBreakdown);
-
-
+    onReset()
+    {
+      this.listContributionBreakdown = [];
+      this.accountSavingsRequestModel = new AcountSavingsRequest();
     }
 }

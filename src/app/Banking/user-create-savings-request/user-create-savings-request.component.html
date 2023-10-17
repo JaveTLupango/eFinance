@@ -89,7 +89,9 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword4" class="form-label">Monthly Term</label>
-                                <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.monthlyTerm" disabled>
+                                <input type="text" class="form-control" value="Weekly - (Sat)" disabled *ngIf="accountSavingsRequestModel.monthlyTerm == 4">
+                                <input type="text" class="form-control" value="Semi Monthly (15th & 30th)" disabled *ngIf="accountSavingsRequestModel.monthlyTerm == 2">
+                                <input type="text" class="form-control" value="Monthly (30th)" disabled *ngIf="accountSavingsRequestModel.monthlyTerm == 1">
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword4" class="form-label">Expected Amount Per Term</label>
@@ -105,7 +107,7 @@
                             </div>
                             <div class="">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="reset" (click)="onReset()" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
                     </div>
