@@ -6,4 +6,5 @@ export class AcountSavingsRequest {
   gracePeriod : number  = 0;
   extentionFeePerDay : number = 0;
   uniqueId : number = 0;
+  expectedToPaid :Date = new Date();
 }

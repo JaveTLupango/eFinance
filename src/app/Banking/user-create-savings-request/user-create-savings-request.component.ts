@@ -20,8 +20,6 @@ export class UserCreateSavingsRequestComponent {
     {
         this.listContributionBreakdown = [];
         this.accountSavingsRequestModel = this.accountSavingsRequest;
-        console.log(this.accountSavingsRequestModel );
-        console.log(this.accountSavingsRequest );
         this.accountSavingsRequestModel.expectedAmountPerTerm = this.accountSavingsRequestModel.targetMonthlyContribution / this.accountSavingsRequestModel.monthlyTerm;
         this.accountSavingsRequestModel.gracePeriod = 3;
         this.accountSavingsRequestModel.extentionFeePerDay = 10;
