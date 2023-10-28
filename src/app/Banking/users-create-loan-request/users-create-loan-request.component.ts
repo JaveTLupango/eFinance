@@ -23,7 +23,6 @@ export class UsersCreateLoanRequestComponent {
     this.accountLoanRequest.amountInterestPerMonth = this.getTotalPercentagePerMonth(this.accountLoanRequest);
     this.accountLoanRequest.totalAmountLoanAndInterest = this.getTotalAmountLoanAndInterest(this.accountLoanRequest);
 
-    this.accountLoanRequestModel = this.accountLoanRequest;
       // this.listContributionBreakdown = [];
       // this.accountSavingsRequestModel = this.accountSavingsRequest;
       // this.accountSavingsRequestModel.expectedAmountPerTerm = this.accountSavingsRequestModel.amountLoan / this.accountSavingsRequestModel.monthlyTerm;
@@ -35,15 +34,20 @@ export class UsersCreateLoanRequestComponent {
       }
       else if(this.accountLoanRequest.monthlyTerm == 2)
       {
-        //this.listContributionBreakdown = this.bdcService.semiMonthly(this.accountLoanRequest);
+        this.listContributionBreakdown = this.bdcService.loanSemiMonthly(this.accountLoanRequest);
       }
       else if (this.accountLoanRequest.monthlyTerm == 1)
       {
-        //this.listContributionBreakdown = this.bdcService.monthly(this.accountLoanRequest);
+        this.listContributionBreakdown = this.bdcService.loanMonthly(this.accountLoanRequest);
       }
       else{
 
       }
+
+      let totalcounts = this.listContributionBreakdown.length;
+      this.accountLoanRequest.expectedAmountPerTerm = this.accountLoanRequest.totalAmountLoanAndInterest / totalcounts;
+      this.accountLoanRequestModel = this.accountLoanRequest;
+
   }
 
   getTotalMonths(model : AccountLoansRequest)

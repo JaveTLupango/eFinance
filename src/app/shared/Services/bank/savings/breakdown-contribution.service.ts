@@ -12,8 +12,6 @@ export class BreakdownContributionService {
   constructor(public datepipe: DatePipe) { }
   listContributionBreakdown : ContributionBreakDown[] = [];
   modelCB : ContributionBreakDown = new ContributionBreakDown();
-
-
   weekly(model : AcountSavingsRequest)
   {
     this.listContributionBreakdown = [];
@@ -114,12 +112,20 @@ export class BreakdownContributionService {
     let end = new Date(model.expectedDateToPaid);
     let weekends = [];
     let terms = 0;
+    let firstLoop = true;
 
     while(start <= end){
+
        var d = start.getDay();
        if(d === 6){
          //console.log(this.datepipe.transform(start, 'yyyy-MM-dd'));
-         weekends.push(new Date(start));
+         if(firstLoop)
+          {
+            firstLoop = false;
+          }
+          else{
+            weekends.push(new Date(start));
+          }
        }
        start.setDate(start.getDate()+1);
     };
@@ -141,5 +147,100 @@ export class BreakdownContributionService {
     });
 
      return this.listContributionBreakdown;
+  }
+
+  loanSemiMonthly(model : AccountLoansRequest)
+  {
+    this.listContributionBreakdown = [];
+    let start= model.requestDate.getMonth();
+    let end = new Date(model.expectedDateToPaid).getMonth();
+    let day = new Date(model.requestDate).getDate();
+
+    let weekends = [];
+    let terms = 0;
+    let firstLoop = true;
+
+
+     let year = (new Date()).getFullYear();
+    let semiMonthly = [];
+    // let month = 0;
+    // let terms = 0;
+
+    while(start <= end)
+    {
+      if(firstLoop)
+      {
+          if(day <= 15)
+          {
+            //var semi1 = new Date(year, start, 15);
+            var semi2 = new Date(year, start+1, 0);
+            //.push(new Date(semi1));
+            semiMonthly.push(new Date(semi2));
+          }
+          // else if(day > 15 && day <=30)
+          // {
+          //   end++;
+          // }
+          firstLoop = false;
+      }
+      else
+      {
+        var semi1 = new Date(year, start, 15);
+        var semi2 = new Date(year, start+1, 0);
+        semiMonthly.push(new Date(semi1));
+        semiMonthly.push(new Date(semi2));
+      }
+      start++;
+    }
+
+    let totalTerms = semiMonthly.length;
+    model.expectedAmountPerTerm = model.totalAmountLoanAndInterest / totalTerms;
+
+    semiMonthly.forEach(a =>{
+      this.modelCB = new ContributionBreakDown();
+      this.modelCB.Amount = model.expectedAmountPerTerm;
+      this.modelCB.extentionFeePerDay = 10;
+      this.modelCB.uniqueId = model.uniqueId;
+      this.modelCB.gracePeriod = model.gracePeriod;
+      terms = terms + 1;
+      this.modelCB.Id = terms;
+      this.modelCB.Term =  "Term #"+terms;
+      this.modelCB.dueDate = new Date(a);
+      this.listContributionBreakdown?.push(this.modelCB);
+    });
+    return this.listContributionBreakdown;
+  }
+
+  loanMonthly(model : AccountLoansRequest)
+  {
+    let year = (new Date()).getFullYear();
+    this.listContributionBreakdown = [];
+    let start= model.requestDate.getMonth();
+    let day = new Date(model.requestDate).getDate();
+    let Monthly = [];
+    let terms = 0;
+    for(let i = 1; model.noMonthsTerms >= i; i++)
+    {
+      var monthly = new Date(year, start+1, day);
+      Monthly.push(new Date(monthly));
+    }
+
+    let totalTerms = Monthly.length;
+    model.expectedAmountPerTerm = model.totalAmountLoanAndInterest / totalTerms;
+
+    Monthly.forEach(a =>{
+      this.modelCB = new ContributionBreakDown();
+      this.modelCB.Amount = model.expectedAmountPerTerm;
+      this.modelCB.extentionFeePerDay = 10;
+      this.modelCB.uniqueId = model.uniqueId;
+      this.modelCB.gracePeriod = model.gracePeriod;
+      terms = terms + 1;
+      this.modelCB.Id = terms;
+      this.modelCB.Term =  "Term #"+terms;
+      this.modelCB.dueDate = new Date(a);
+      this.listContributionBreakdown?.push(this.modelCB);
+    });
+
+    return this.listContributionBreakdown;
   }
 }
