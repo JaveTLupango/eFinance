@@ -106,7 +106,7 @@
                                 <input type="text" class="form-control" [(ngModel)]="accountSavingsRequestModel.extentionFeePerDay" disabled>
                             </div>
                             <div class="">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" (click)="NgSubmitSavingRequest(accountSavingsRequestModel)" class="btn btn-primary">Submit</button>
                                 <button type="reset" (click)="onReset()" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>

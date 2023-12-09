@@ -41,4 +41,9 @@ export class UserCreateSavingsRequestComponent {
       this.listContributionBreakdown = [];
       this.accountSavingsRequestModel = new AcountSavingsRequest();
     }
+
+    NgSubmitSavingRequest(model: AcountSavingsRequest)
+    {
+      alert(model);
+    }
 }
