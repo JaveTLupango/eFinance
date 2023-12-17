@@ -60,10 +60,10 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of listContributionBreakdown">
-                                    <th scope="row">{{ item.Id }}</th>
-                                    <td>{{ item.Term }}</td>
-                                    <td>{{ item.Amount }}</td>
-                                    <td>{{ item.dueDate | date:'MM/dd/yyyy'}}</td>
+                                    <th scope="row">{{ item.id }}</th>
+                                    <td>{{ item.term }}</td>
+                                    <td>{{ item.amount }}</td>
+                                    <td>{{ item.due_date | date:'MM/dd/yyyy'}}</td>
                                     <td><span class="badge bg-success-light">Paid</span></td>
                                 </tr>
                             </tbody>

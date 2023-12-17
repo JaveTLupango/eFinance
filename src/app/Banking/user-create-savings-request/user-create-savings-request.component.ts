@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { BreakdownContributionService } from 'src/app/shared/Services/bank/savings/breakdown-contribution.service';
 import { ContributionBreakDown } from 'src/app/shared/model/bank/contributionBreakDown/contribution-break-down';
-import { DatePipe } from '@angular/common'
+import { AcountSavingsRequest } from 'src/app/shared/model/bank/AccountSavingsRequest/acount-savings-request';
+import {RequestListModel} from 'src/app/shared/model/bank/RequestModel/request-list-model.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-create-savings-request',
@@ -14,6 +16,7 @@ export class UserCreateSavingsRequestComponent {
     accountSavingsRequestModel : AcountSavingsRequest = new AcountSavingsRequest();
     listContributionBreakdown : ContributionBreakDown[] = [];
     bdcService : BreakdownContributionService = new BreakdownContributionService(this.datepipe);
+    requestModel : RequestListModel = new RequestListModel();
 
     onSubmit()
     {
@@ -43,6 +46,12 @@ export class UserCreateSavingsRequestComponent {
 
     NgSubmitSavingRequest(model: AcountSavingsRequest)
     {
-      alert(model);
+      //alert(model);
+      this.requestModel.user_id = 2;
+      this.requestModel.savings_id = 1;
+      this.requestModel.listmodel = this.listContributionBreakdown;
+
+      console.log(this.requestModel);  
+      console.log(JSON.stringify(this.requestModel));      
     }
 }

@@ -1,10 +1,10 @@
 export class ContributionBreakDown {
-  Id : number = 0;
-  uniqueId : number = 0;
-  Term: string = '';
-  Amount : number = 0;
-  dueDate	: Date = new Date();
+  id : number = 0;
+  savings_id : number = 0;
+  term: string = '';
+  amount : number = 0;
+  due_date	: Date = new Date();
   status : number = 0;
-  gracePeriod : number  = 0;
-  extentionFeePerDay : number = 0;
+  grace_period : number  = 0;
+  extention_fee_per_day : number = 0;
 }
