@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BreakdownContributionService } from 'src/app/shared/Services/bank/savings/breakdown-contribution.service';
-import { AcountSavingsRequest } from 'src/app/shared/model/bank/AccountSavingsRequest/acount-savings-request';
 import { ContributionBreakDown } from 'src/app/shared/model/bank/contributionBreakDown/contribution-break-down';
 import { DatePipe } from '@angular/common'
 
