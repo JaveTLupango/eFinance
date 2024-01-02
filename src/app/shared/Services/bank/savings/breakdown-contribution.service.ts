@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ContributionBreakDown } from 'src/app/shared/model/bank/contributionBreakDown/contribution-break-down';
+import { ContributionBreakDown, LoanContributionBreakDown } from 'src/app/shared/model/bank/contributionBreakDown/contribution-break-down';
 import { DatePipe } from '@angular/common'
 import { AcountSavingsRequest } from 'src/app/shared/model/bank/AccountSavingsRequest/acount-savings-request';
 import { AccountLoansRequest } from 'src/app/shared/model/AcountLoansRequest/account-loans-request.model';
@@ -11,6 +11,9 @@ import { count } from 'rxjs';
 export class BreakdownContributionService {
   constructor(public datepipe: DatePipe) { }
   listContributionBreakdown : ContributionBreakDown[] = [];
+  listLoanLoanContributionBreakDown : LoanContributionBreakDown [] = [];
+
+  modelLoanCB : LoanContributionBreakDown = new LoanContributionBreakDown();
   modelCB : ContributionBreakDown = new ContributionBreakDown();
   weekly(model : AcountSavingsRequest)
   {
@@ -107,9 +110,9 @@ export class BreakdownContributionService {
 
   loanWeekly(model : AccountLoansRequest)
   {
-    this.listContributionBreakdown = [];
-    let start= model.requestDate;
-    let end = new Date(model.expectedDateToPaid);
+    this.listLoanLoanContributionBreakDown = [];
+    let start= model.date_loan;
+    let end = new Date(model.date_paid_off);
     let weekends = [];
     let terms = 0;
     let firstLoop = true;
@@ -131,30 +134,28 @@ export class BreakdownContributionService {
     };
 
     let totalTerms = weekends.length;
-    model.expectedAmountPerTerm = model.totalAmountLoanAndInterest / totalTerms;
+    model.amount_per_gives = model.total_amount_loan_and_interest / totalTerms;
 
     weekends.forEach(a =>{
-      this.modelCB = new ContributionBreakDown();
-      this.modelCB.amount = model.expectedAmountPerTerm;
-      this.modelCB.extention_fee_per_day = 10;
-      this.modelCB.savings_id = model.uniqueId;
-      this.modelCB.grace_period = model.gracePeriod;
+      this.modelLoanCB = new LoanContributionBreakDown();
+      this.modelLoanCB.amount = model.amount_per_gives;
+      //this.modelLoanCB.loan_id = model.loan_id;
       terms = terms + 1;
-      this.modelCB.id = terms;
-      this.modelCB.term =  "Term #"+terms;
-      this.modelCB.due_date = new Date(a);
-      this.listContributionBreakdown?.push(this.modelCB);
+      this.modelLoanCB.id = terms;
+      this.modelLoanCB.term_no =  "Term #"+terms;
+      this.modelLoanCB.due_date = new Date(a);
+      this.listLoanLoanContributionBreakDown?.push(this.modelLoanCB);
     });
 
-     return this.listContributionBreakdown;
+     return this.listLoanLoanContributionBreakDown;
   }
 
   loanSemiMonthly(model : AccountLoansRequest)
   {
-    this.listContributionBreakdown = [];
-    let start= model.requestDate.getMonth();
-    let end = new Date(model.expectedDateToPaid).getMonth();
-    let day = new Date(model.requestDate).getDate();
+    this.listLoanLoanContributionBreakDown = [];
+    let start= model.date_loan.getMonth();
+    let end = new Date(model.date_paid_off).getMonth();
+    let day = new Date(model.date_loan).getDate();
 
     let weekends = [];
     let terms = 0;
@@ -194,53 +195,49 @@ export class BreakdownContributionService {
     }
 
     let totalTerms = semiMonthly.length;
-    model.expectedAmountPerTerm = model.totalAmountLoanAndInterest / totalTerms;
+    model.amount_per_gives = model.total_amount_loan_and_interest / totalTerms;
 
     semiMonthly.forEach(a =>{
-      this.modelCB = new ContributionBreakDown();
-      this.modelCB.amount = model.expectedAmountPerTerm;
-      this.modelCB.extention_fee_per_day = 10;
-      this.modelCB.savings_id = model.uniqueId;
-      this.modelCB.grace_period = model.gracePeriod;
+      this.modelLoanCB = new LoanContributionBreakDown();
+      this.modelLoanCB.amount = model.amount_per_gives;
+      //this.modelLoanCB.loan_id = model.loan_id;
       terms = terms + 1;
-      this.modelCB.id = terms;
-      this.modelCB.term =  "Term #"+terms;
-      this.modelCB.due_date = new Date(a);
-      this.listContributionBreakdown?.push(this.modelCB);
+      this.modelLoanCB.id = terms;
+      this.modelLoanCB.term_no =  "Term #"+terms;
+      this.modelLoanCB.due_date = new Date(a);
+      this.listLoanLoanContributionBreakDown?.push(this.modelLoanCB);
     });
-    return this.listContributionBreakdown;
+    return this.listLoanLoanContributionBreakDown;
   }
 
   loanMonthly(model : AccountLoansRequest)
   {
     let year = (new Date()).getFullYear();
-    this.listContributionBreakdown = [];
-    let start= model.requestDate.getMonth();
-    let day = new Date(model.requestDate).getDate();
+    this.listLoanLoanContributionBreakDown = [];
+    let start= model.date_loan.getMonth();
+    let day = new Date(model.date_loan).getDate();
     let Monthly = [];
     let terms = 0;
-    for(let i = 1; model.noMonthsTerms >= i; i++)
+    for(let i = 1; model.no_months >= i; i++)
     {
-      var monthly = new Date(year, start+1, day);
+      var monthly = new Date(year, start+i, day);
       Monthly.push(new Date(monthly));
     }
 
     let totalTerms = Monthly.length;
-    model.expectedAmountPerTerm = model.totalAmountLoanAndInterest / totalTerms;
+    model.amount_per_gives = model.total_amount_loan_and_interest / totalTerms;
 
     Monthly.forEach(a =>{
-      this.modelCB = new ContributionBreakDown();
-      this.modelCB.amount = model.expectedAmountPerTerm;
-      this.modelCB.extention_fee_per_day = 10;
-      this.modelCB.savings_id = model.uniqueId;
-      this.modelCB.grace_period = model.gracePeriod;
+      this.modelLoanCB = new LoanContributionBreakDown();
+      this.modelLoanCB.amount = model.amount_per_gives;
+      //this.modelLoanCB.loan_id = model.loan_id;
       terms = terms + 1;
-      this.modelCB.id = terms;
-      this.modelCB.term =  "Term #"+terms;
-      this.modelCB.due_date = new Date(a);
-      this.listContributionBreakdown?.push(this.modelCB);
+      this.modelLoanCB.id = terms;
+      this.modelLoanCB.term_no =  "Term #"+terms;
+      this.modelLoanCB.due_date = new Date(a);
+      this.listLoanLoanContributionBreakDown?.push(this.modelLoanCB);
     });
 
-    return this.listContributionBreakdown;
+    return this.listLoanLoanContributionBreakDown;
   }
 }
