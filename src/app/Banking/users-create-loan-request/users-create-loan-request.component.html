@@ -31,11 +31,11 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword4" class="form-label">Monthly Term</label>
-                                <select id="monthlyTerm" class="form-select" name="no_month_term" [(ngModel)]="accountLoanRequest.no_month_term">
+                                <select id="no_month_term" class="form-select" name="no_month_term" [(ngModel)]="accountLoanRequest.no_month_term">                                  
+                                  <option  value="0" >Please Monthly Term</option>
                                   <option selected value="4">Weekly - (Sat)</option>
                                   <option  value="2">Semi Monthly (15th & 30th)</option>
-                                  <option  value="1">Monthly (30th)</option>
-                                  <option  value="0">Open Terms</option>
+                                  <option  value="1">Monthly</option>
                                 </select>
                             </div>
                             <div class="">
@@ -108,7 +108,7 @@
                                 <input type="text" class="form-control" name="extension_fee_per_day" [(ngModel)]="accountLoanRequestModel.extension_fee_per_day" disabled>
                             </div>
                             <div class="">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" (click)="NgSubmitSavingRequest(accountLoanRequestModel)" class="btn btn-primary">Submit</button>
                                 <button type="reset" (click)="onReset()" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>

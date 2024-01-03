@@ -1,4 +1,8 @@
+import { LoanContributionBreakDown } from "../bank/contributionBreakDown/contribution-break-down";
+
 export class AccountLoansRequest {
+  
+  user_id : number = 0;
   loan_purpose_name : string = '';
   amount : number = 0;
   date_loan : Date = new Date();
@@ -26,6 +30,6 @@ export class AccountLoansRequest {
   amount_interest_per_month : number = 0;
   total_amount_loan_and_interest : number = 0;
   no_months : number = 0;
-
+  loanContributionBreakDown : LoanContributionBreakDown[] = [];
 
 }

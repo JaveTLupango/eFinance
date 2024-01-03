@@ -50,8 +50,7 @@ export class UserCreateSavingsRequestComponent {
       this.requestModel.user_id = 2;
       this.requestModel.savings_id = 1;
       this.requestModel.listmodel = this.listContributionBreakdown;
-
-      console.log(this.requestModel);  
-      console.log(JSON.stringify(this.requestModel));      
+      console.log(this.requestModel);
+      console.log(JSON.stringify(this.requestModel));
     }
 }

@@ -9,7 +9,9 @@ import { count } from 'rxjs';
   providedIn: 'root'
 })
 export class BreakdownContributionService {
+  
   constructor(public datepipe: DatePipe) { }
+
   listContributionBreakdown : ContributionBreakDown[] = [];
   listLoanLoanContributionBreakDown : LoanContributionBreakDown [] = [];
 
@@ -134,7 +136,7 @@ export class BreakdownContributionService {
     };
 
     let totalTerms = weekends.length;
-    model.amount_per_gives = model.total_amount_loan_and_interest / totalTerms;
+    model.amount_per_gives = Number((model.total_amount_loan_and_interest / totalTerms).toFixed(2));
 
     weekends.forEach(a =>{
       this.modelLoanCB = new LoanContributionBreakDown();
@@ -195,7 +197,7 @@ export class BreakdownContributionService {
     }
 
     let totalTerms = semiMonthly.length;
-    model.amount_per_gives = model.total_amount_loan_and_interest / totalTerms;
+    model.amount_per_gives = Number((model.total_amount_loan_and_interest / totalTerms).toFixed(2));
 
     semiMonthly.forEach(a =>{
       this.modelLoanCB = new LoanContributionBreakDown();
@@ -225,7 +227,7 @@ export class BreakdownContributionService {
     }
 
     let totalTerms = Monthly.length;
-    model.amount_per_gives = model.total_amount_loan_and_interest / totalTerms;
+    model.amount_per_gives =Number((model.total_amount_loan_and_interest / totalTerms).toFixed(2));
 
     Monthly.forEach(a =>{
       this.modelLoanCB = new LoanContributionBreakDown();
