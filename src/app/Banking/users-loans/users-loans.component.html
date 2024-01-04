@@ -49,8 +49,8 @@
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>2</h6>
-                                        <span class="text-success small pt-1 fw-bold">₱12000</span> <span class="text-muted small pt-2 ps-1">Total Amount</span>
+                                        <h6>{{ loanDetails.loan_count }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">₱{{ loanDetails.total_loan_amount | number }}</span> <span class="text-muted small pt-2 ps-1">Total Amount</span>
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +84,8 @@
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>₱12,000</h6>
-                                        <span class="text-success small pt-1 fw-bold">₱100</span> <span class="text-muted small pt-2 ps-1">Oct 10 Contr.</span>
+                                        <h6>₱{{ loanDetails.total_loan_amount | number }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">₱{{ totalAmountPaid|number }}</span> <span class="text-muted small pt-2 ps-1">Paid as of {{ monthNow }}.</span>
 
                                     </div>
                                 </div>
@@ -112,15 +112,15 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Loan <span>| Amount</span></h5>
+                                <h5 class="card-title">Due <span>| Amount</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-people"></i>
+                                        <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>₱12044</h6>
-                                        <span class="text-danger small pt-1 fw-bold">Due</span><span class="text-muted small pt-2 ps-1">As of Oct 10</span>
+                                        <h6>₱{{ totalAmountDue | number }}</h6>
+                                        <span class="text-danger small pt-1 fw-bold">Due</span><span class="text-muted small pt-2 ps-1">this month of {{ monthNow }}</span>
                                     </div>
                                 </div>
 
@@ -228,44 +228,41 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Recent Transaction <span>| This Month</span></h5>
+                                <h5 class="card-title">Account Loan <span>| List</span></h5>
 
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
                                             <th scope="col">Account</th>
-                                            <th scope="col">Balance</th>
-                                            <th scope="col">Last Transaction</th>
-                                            <th scope="col">Amount</th>
+                                            <th scope="col">Loan Amount</th>
+                                            <th scope="col">+ Interest</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">PayOff</th>
                                             <th scope="col">Status</th>
+                                            <th *ngIf="userRole" scope="col">Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2457</a></th>
-                                            <td>Savings</td>
-                                            <td><a href="#" class="text-primary">12000</a></td>
-                                            <td>10/10/2023</td>
-                                            <td>$64</td>
-                                            <td><span class="badge bg-success">Active</span></td>
+                                        <tr *ngFor="let item of listLoanAccount">
+                                            <th scope="row"><a href="#">L-{{ item.id | number:'3.0' }}</a></th>
+                                            <td>₱{{ item.amount }}</td>
+                                            <td>₱{{ item.total_amount_loan_and_interest }}</td>
+                                            <td>{{ item.date_loan|date:'MMM/dd/yyyy'}}</td>
+                                            <td>{{ item.date_paid_off|date:'MMM/dd/yyyy'}}</td>
+                                            <td>
+                                                <span *ngIf="item.is_active && item.is_approved && item.is_release" class="badge bg-success">Active</span>
+                                                <span *ngIf="item.is_active && item.is_approved && !item.is_release" class="badge bg-success">For Releasing</span>
+                                                <span *ngIf="item.is_active && !item.is_approved && !item.is_release" class="badge bg-warning">For Approval</span>
+                                                <span *ngIf="!item.is_active" class="badge bg-danger">Reject</span>
+                                            </td>
+                                            <td *ngIf="userRole">
+                                                <button *ngIf="item.is_active && item.is_approved" type="button" class="btn btn-sm" disabled>Approved</button>
+                                                <button *ngIf="!item.is_active && !item.is_approved" type="button" class="btn btn-sm" disabled>Rejected</button>
+                                                <button *ngIf="item.is_active && !item.is_approved" type="button" class="btn btn-sm btn-primary">Approve</button>
+                                                <button *ngIf="item.is_active && !item.is_approved" type="button" class="btn btn-sm btn-danger">Reject</button>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2457</a></th>
-                                            <td>Savings</td>
-                                            <td><a href="#" class="text-primary">12000</a></td>
-                                            <td>10/10/2023</td>
-                                            <td>$64</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2457</a></th>
-                                            <td>Savings</td>
-                                            <td><a href="#" class="text-primary">12000</a></td>
-                                            <td>10/10/2023</td>
-                                            <td>$64</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -355,80 +352,6 @@
                     </div>
                 </div>
                 <!-- End Recent Activity -->
-
-                <!-- Website Traffic -->
-                <div class="card">
-                    <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
-
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="card-body pb-0">
-                        <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-
-                        <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                echarts.init(document.querySelector("#trafficChart")).setOption({
-                                    tooltip: {
-                                        trigger: 'item'
-                                    },
-                                    legend: {
-                                        top: '5%',
-                                        left: 'center'
-                                    },
-                                    series: [{
-                                        name: 'Access From',
-                                        type: 'pie',
-                                        radius: ['40%', '70%'],
-                                        avoidLabelOverlap: false,
-                                        label: {
-                                            show: false,
-                                            position: 'center'
-                                        },
-                                        emphasis: {
-                                            label: {
-                                                show: true,
-                                                fontSize: '18',
-                                                fontWeight: 'bold'
-                                            }
-                                        },
-                                        labelLine: {
-                                            show: false
-                                        },
-                                        data: [{
-                                            value: 1048,
-                                            name: 'Search Engine'
-                                        }, {
-                                            value: 735,
-                                            name: 'Direct'
-                                        }, {
-                                            value: 580,
-                                            name: 'Email'
-                                        }, {
-                                            value: 484,
-                                            name: 'Union Ads'
-                                        }, {
-                                            value: 300,
-                                            name: 'Video Ads'
-                                        }]
-                                    }]
-                                });
-                            });
-                        </script>
-
-                    </div>
-                </div>
-                <!-- End Website Traffic -->
 
             </div>
             <!-- End Right side columns -->

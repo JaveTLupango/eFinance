@@ -31,6 +31,7 @@ import { UsersCreateLoanRequestComponent } from './Banking/users-create-loan-req
 import { UserDashboardComponent } from './Banking/user-dashboard/user-dashboard.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { DatePipe } from '@angular/common';
+import { UserLoanInfoComponent } from './Banking/user-loan-info/user-loan-info.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DatePipe } from '@angular/common';
     UsersLoansComponent,
     UsersCreateLoanRequestComponent,
     UserDashboardComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserLoanInfoComponent
   ],
   imports: [
     BrowserModule,

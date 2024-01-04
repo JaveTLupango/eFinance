@@ -18,12 +18,18 @@ export class LoanContributionBreakDown {
   amount : number = 0;
   date : Date = new Date();
   due_date	: Date = new Date();
-  is_paid : boolean = false;  
+  is_paid : boolean = false;
   status : number = 0;
   acct_paid_date : Date = new Date();
   approved_by : number = 0;
   aprroved_date : Date = new Date();
   grace_period : number  = 0;
-  acct_paid : boolean = false;
   is_approved : boolean = false;
+  is_rejected : boolean = false;
+  rejected_by : number = 0;
+  rejected_date : Date = new Date();
+  remarks : string = '';
+  is_payment_recieved : boolean = false;
+  payment_recieved_by : number = 0;
+  payment_recieved_date : Date = new Date();
 }

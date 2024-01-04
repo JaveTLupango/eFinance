@@ -10,6 +10,6 @@ export class SidebarComponent {
   userRole : boolean= false;
   ngOnInit()
   {
-    this.userRole = this.role == 1 ? true : false;
+    this.userRole = this.role == 1 ? true : false; // true admin, false user
   }
 }

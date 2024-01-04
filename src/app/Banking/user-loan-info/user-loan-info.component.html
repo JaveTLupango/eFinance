@@ -1,0 +1,201 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>L{{ loanInfo.id | number : '3.0' }} - {{ loanInfo.loan_purpose_name }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">User</li>
+                <li class="breadcrumb-item active">Loan Info</li>
+                <li class="breadcrumb-item active">L{{ loanInfo.id | number : '3.0' }} - {{ loanInfo.loan_purpose_name }}</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- Sales Card -->
+                    <div class="col-xxl-3 col-md-6">
+                        <div class="card info-card sales-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Loans <span>| Amount</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-cart"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ loanInfo.amount }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">₱{{ loanInfo.total_amount_loan_and_interest | number }}</span> <span class="text-muted small pt-2 ps-1">Amount w/ interest</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Sales Card -->
+                    <!-- Revenue Card -->
+                    <div class="col-xxl-3 col-md-6">
+                        <div class="card info-card revenue-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Loans <span>| Payable Amount</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ totalPayableAmount | number }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">₱{{ paidAsOfThisMonth|number }}</span> <span class="text-muted small pt-2 ps-1">Paid as of {{ monthNow }}.</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Revenue Card -->
+                    <!-- Customers Card -->
+                    <div class="col-xxl-3 col-xl-12">
+                        <div class="card info-card customers-card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Over Due <span>| Amount</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ totalAmountOverDue | number }}</h6>
+                                        <span class="text-danger small pt-1 fw-bold">Over Due</span><span class="text-muted small pt-2 ps-1">as of {{ monthNow }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Customers Card -->
+                    <div class="col-xxl-3 col-xl-12">
+                        <div class="card info-card customers-card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Due <span>| Amount</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ totalAmountDue | number }}</h6>
+                                        <span class="text-warning small pt-1 fw-bold">Due</span><span class="text-muted small pt-2 ps-1">as of {{ monthNow }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recent Sales -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Account Loan Breakdown<span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Due Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of loanContributionBreakDown">
+                                            <th scope="row">
+                                                <span class="btn btn-sm">
+                                                  {{ item.term_no }}</span>
+                                            </th>
+                                            <td>₱{{ item.amount }}</td>
+                                            <td>{{ item.due_date|date:'MMM/dd/yy'}}</td>
+                                            <td>
+                                                <span *ngIf="!item.is_paid && !item.is_payment_recieved && !item.is_approved  && !item.is_approved && !item.is_rejected" class="badge bg-warning" title="Payable">Payable</span>
+                                                <span *ngIf="item.is_paid && !item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-info" title="Payment Request">Invoice</span>
+                                                <span *ngIf="item.is_paid && item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-primary">Received</span>
+                                                <span *ngIf="item.is_paid && item.is_payment_recieved && item.is_approved && !item.is_rejected" class="badge bg-success">Paid</span>
+                                                <span *ngIf="item.is_rejected" class="badge bg-danger">Rejected</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Recent Sales -->
+                </div>
+            </div>
+            <!-- End Left side columns -->
+        </div>
+        <!-- Modal -->
+    </section>
+</main>

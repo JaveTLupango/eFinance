@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AccountLoansRequest } from 'src/app/shared/model/AcountLoansRequest/account-loans-request.model';
 import { BaseURL } from 'src/app/shared/model/base/base-url.model';
@@ -19,4 +19,20 @@ export class LoanRequestService {
     const apiURL = this.baseurl.url_api+"/loan/create";
         return this.http.post<any>(apiURL,model,{headers});
   }
+
+  getLoanAccountByUser()
+  {
+    const headers = new HttpHeaders()
+            .set("Authorization", "Bearer "+localStorage.getItem('AuthToken'));
+
+    let queryParams = new HttpParams();
+        queryParams = queryParams.append("user_id",Number(localStorage.getItem('UserId')));
+
+    const options = { params: queryParams, headers: headers };
+
+    const apiURL = this.baseurl.url_api+"/loan/getloanlist";
+
+    return this.http.get<any>(apiURL,options);
+  }
 }
+

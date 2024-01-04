@@ -16,6 +16,7 @@ import { UserSavingsComponent } from './Banking/user-savings/user-savings.compon
 import { UsersLoansComponent } from './Banking/users-loans/users-loans.component';
 import { UserCreateSavingsRequestComponent } from './Banking/user-create-savings-request/user-create-savings-request.component';
 import { UsersCreateLoanRequestComponent } from './Banking/users-create-loan-request/users-create-loan-request.component';
+import { UserLoanInfoComponent } from './Banking/user-loan-info/user-loan-info.component';
 
 const routes: Routes = [
   // homepage route
@@ -34,8 +35,7 @@ const routes: Routes = [
  { path: 'user-loans' , component:UsersLoansComponent},
  { path: 'user-create-savings' , component:UserCreateSavingsRequestComponent},
  { path: 'user-create-loans' , component:UsersCreateLoanRequestComponent},
-
-
+ { path: 'user-loan-info' , component:UserLoanInfoComponent},
 
 //  { path: 'system-settings' , component:},
 
