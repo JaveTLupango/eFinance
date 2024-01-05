@@ -20,10 +20,30 @@ export class UsersCreateLoanRequestComponent {
   listContributionBreakdown : LoanContributionBreakDown[] = [];
   bdcService : BreakdownContributionService = new BreakdownContributionService(this.datepipe);
   loanRequestService : LoanRequestService = new LoanRequestService(this.http);
+
+  dateSelectMonth : string = '';
+  dateNow : Date = new Date();
+  dateMax : Date = new Date();
+  minMonths = this.datepipe.transform(this.dateNow, 'yyyy-MM')?.toString();
+  maxMonths = this.datepipe.transform(new Date(this.dateMax.setMonth(this.dateNow.getMonth() + 6)), 'yyyy-MM')?.toString();
+
+  ngOnInit(){
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+    console.log('Min:' +this.minMonths);
+    console.log('Max:' +this.maxMonths);
+  }
+
   onSubmit()
   {
+    // console.log(this.dateSelectMonth);
+    // console.log(new Date(this.dateSelectMonth+'-28'));
+
+    this.accountLoanRequest.date_paid_off = new Date(this.dateSelectMonth+'-28');
+
     if(this.accountLoanRequest.loan_purpose_name == null || this.accountLoanRequest.loan_purpose_name == ''
-        || this.accountLoanRequest.amount == 0)
+        || this.accountLoanRequest.amount == 0 || this.dateSelectMonth == "")
     {
       Swal.fire(
         'Warning!',
@@ -68,7 +88,7 @@ export class UsersCreateLoanRequestComponent {
         this.accountLoanRequest.is_weekly = true;
         this.listContributionBreakdown = this.bdcService.loanWeekly(this.accountLoanRequest);
       }
-      
+
       let totalcounts = this.listContributionBreakdown.length;
       this.accountLoanRequest.num_of_gives = totalcounts;
 
@@ -95,7 +115,7 @@ export class UsersCreateLoanRequestComponent {
     let startMonth = (new Date()).getMonth() + 1;
     let lastMonth = expectedDateToPaid.getMonth() + 1;
     let totalMonths =  lastMonth - startMonth;
-    return totalMonths == 0 ? 1 : totalMonths;
+    return totalMonths == 0 ? 1 : totalMonths+1;
   }
 
   getTotalPercentagePerMonth(model : AccountLoansRequest)
@@ -108,7 +128,13 @@ export class UsersCreateLoanRequestComponent {
 
   getTotalAmountLoanAndInterest(model : AccountLoansRequest)
   {
-    return (model.amount_interest_per_month * model.no_month_term) + model.amount;
+    var i : number = 0;
+    var total : number = model.amount;
+    for(i = model.no_months; i >= 1; i--)
+    {
+      total = (total * model.interest_rate) + total;
+    }
+    return total;
   }
 
   NgSubmitSavingRequest(model: AccountLoansRequest)
@@ -117,7 +143,7 @@ export class UsersCreateLoanRequestComponent {
     model.user_id = Number(localStorage.getItem('UserId'));
     model.loanContributionBreakDown = this.listContributionBreakdown;
     console.log(model);
-    
+
     this.loanRequestService.create(model).subscribe(
       {
         next: (data) =>
@@ -145,7 +171,7 @@ export class UsersCreateLoanRequestComponent {
         },
         complete: () => {
             console.log('complete')
-        }  
+        }
       }
     );
   }

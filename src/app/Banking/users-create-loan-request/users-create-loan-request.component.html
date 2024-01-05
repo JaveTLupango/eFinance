@@ -9,7 +9,6 @@
             </ol>
         </nav>
     </div>
-
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-6">
@@ -26,12 +25,13 @@
                                 <input type="number" class="form-control" name="amount" [(ngModel)]="accountLoanRequest.amount">
                             </div>
                             <div class="col-12">
-                                <label for="inputEmail4" class="form-label">Expected to Paid (On/Before Nov 30)</label>
-                                <input type="date" class="form-control" name="date_paid_off" [(ngModel)]="accountLoanRequest.date_paid_off">
+                                <label for="inputEmail4" class="form-label">Expected to Paid (Base on Month Selected)</label>
+                                <input type="month" [(ngModel)]="dateSelectMonth" class="form-control" id="start" name="start" min="{{ minMonths }}" max="{{ maxMonths }}">
+                                <!-- <input type="date" class="form-control" name="date_paid_off" [(ngModel)]="accountLoanRequest.date_paid_off"> -->
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword4" class="form-label">Monthly Term</label>
-                                <select id="no_month_term" class="form-select" name="no_month_term" [(ngModel)]="accountLoanRequest.no_month_term">                                  
+                                <select id="no_month_term" class="form-select" name="no_month_term" [(ngModel)]="accountLoanRequest.no_month_term">
                                   <option  value="0" >Please Monthly Term</option>
                                   <option selected value="4">Weekly - (Sat)</option>
                                   <option  value="2">Semi Monthly (15th & 30th)</option>

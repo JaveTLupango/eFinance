@@ -14,7 +14,7 @@ export class AccountLoansRequest {
   is_mid_monthly : boolean = false;
   is_weekly : boolean = false;
   amount_per_gives : number = 0;
-  interest_rate : number = 0;
+  interest_rate : number = .1;
   num_day_grace_period : number  = 3;
   extension_fee_per_day : number = 10;
   is_active : boolean = true;
