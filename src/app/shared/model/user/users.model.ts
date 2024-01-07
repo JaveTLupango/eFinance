@@ -1,3 +1,5 @@
+import { AccountLoansRequest } from "../AcountLoansRequest/account-loans-request.model";
+
 export class Users {
   id: number = 0;
   firstname : string = '';
@@ -12,4 +14,6 @@ export class Users {
   updated_at: string = '';
   email_verified_at: string ='';
   created_at: string = '';
+  total_loan_amount : number = 0;
+  loan_account : AccountLoansRequest[] = [];
 }

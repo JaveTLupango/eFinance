@@ -15,7 +15,7 @@
             <!-- Left side columns -->
             <div class="col-lg-10">
                 <div class="row">
-                    <!-- Sales Card -->
+                    <!-- Balance Bank Amount Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
@@ -49,7 +49,7 @@
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>₱4,500</h6>
+                                        <h6>₱{{ totalLoanedAmount | number }}</h6>
                                         <span class="text-success small pt-1 fw-bold">₱4,000</span> <span class="text-muted small pt-2 ps-1">Collectable</span> &
                                         <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
                                     </div>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <!-- End Revenue Card -->
-                    <!-- Revenue Card -->
+                    <!-- Loan Due Amount Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card customers-card">
                             <div class="card-body">
@@ -69,7 +69,7 @@
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>₱4,500</h6>
+                                        <h6>₱{{ totalDueAmount }}</h6>
                                         <span class="text-danger small pt-2 fw-bold">Due</span> <span class="text-muted small pt-2 ps-1">as of Jan</span> &
                                         <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
                                     </div>
@@ -80,7 +80,7 @@
                     </div>
                     <!-- End Revenue Card -->
 
-                    <!-- Revenue Card -->
+                    <!-- Paid loan amount Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
@@ -90,7 +90,7 @@
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>₱500</h6>
+                                        <h6>₱{{ totalPaidLoanAmount | number }}</h6>
                                         <span class="text-danger small pt-2 fw-bold">Due</span> <span class="text-muted small pt-2 ps-1">as of Jan</span> &
                                         <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
                                     </div>
@@ -101,7 +101,7 @@
                     </div>
                     <!-- End Revenue Card -->
 
-                    <!-- Revenue Card -->
+                    <!-- Over Due Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card customers-card">
                             <div class="card-body">
@@ -111,7 +111,7 @@
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>₱4,500</h6>
+                                        <h6>₱{{ totalOverDueAmount| number }}</h6>
                                         <span class="text-danger small pt-2 fw-bold">Over Due</span> <span class="text-muted small pt-2 ps-1">as of Jan</span> &
                                         <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
                                     </div>
@@ -122,7 +122,7 @@
                     </div>
                     <!-- End Revenue Card -->
 
-                    <!-- Customers Card -->
+                    <!-- Customers Total Active Users  -->
                     <div class="col-xxl-3 col-xl-12">
                         <div class="card info-card customers-card">
 
@@ -134,7 +134,7 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>1244</h6>
+                                        <h6>{{ totalActiveUser }}</h6>
                                         <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
 
                                     </div>
@@ -146,7 +146,7 @@
                     </div>
                     <!-- End Customers Card -->
 
-                    <!-- Sales Card -->
+                    <!-- laon Request List Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
@@ -157,7 +157,7 @@
                                         <i class="bi bi-send-plus"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>2</h6>
+                                        <h6>{{ totalRequestLoanAccount }}</h6>
                                         <span class="text-success small pt-1 fw-bold">10%</span> <span class="text-muted small pt-2 ps-1">Increase</span>
 
                                     </div>
@@ -176,16 +176,15 @@
                                         <i class="bi bi-list"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>20</h6>
+                                        <h6>{{ totalActiveLoanAccount }}</h6>
                                         <span class="text-success small pt-1 fw-bold">10%</span> <span class="text-muted small pt-2 ps-1">Increase</span>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Recent Sales -->
+                    <!-- User With Loans List -->
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
@@ -198,71 +197,18 @@
                                             <th scope="col">Amount</th>
                                             <th scope="col">Interest</th>
                                             <th scope="col">+ Interest</th>
-                                            <th scope="col">No Months</th>
-                                            <th scope="col">No Terms</th>
-                                            <th scope="col">Date Pay Off</th>
-                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#">U001</a></th>
-                                            <td>Brandon Jacob</td>
-                                            <td>₱1,000</td>
+                                        <tr *ngFor="let user of listUserModel">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>₱{{ totalLoanAccount(user.loan_account) | number }}</td>
                                             <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2147</a></th>
-                                            <td>Bridie Kessler</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2049</a></th>
-                                            <td>Ashleigh Langosh</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2644</a></th>
-                                            <td>Angus Grady</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2644</a></th>
-                                            <td>Raheem Lehner</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
+                                            <td>₱{{ totalLoanAccountWithInterest(user.loan_account) | number}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
-
                             </div>
 
                         </div>
@@ -281,69 +227,39 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Amount</th>
-                                            <th scope="col">Interest</th>
-                                            <th scope="col">+ Interest</th>
+                                            <!-- <th scope="col">Interest</th> -->
+                                            <!-- <th scope="col">+ Interest</th>
                                             <th scope="col">No Months</th>
                                             <th scope="col">No Terms</th>
-                                            <th scope="col">Date Pay Off</th>
+                                            <th scope="col">Date Pay Off</th> -->
                                             <th scope="col">Status</th>
+                                            <th scope="col">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#">R001</a></th>
-                                            <td>Brandon Jacob</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">R001</a></th>
-                                            <td>Bridie Kessler</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">R001</a></th>
-                                            <td>Ashleigh Langosh</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">R001</a></th>
-                                            <td>Angus Grady</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">R001</a></th>
-                                            <td>Raheem Lehner</td>
-                                            <td>₱1,000</td>
-                                            <td>10%</td>
-                                            <td>₱1,100</td>
-                                            <td>3</td>
-                                            <td>6</td>
-                                            <td>Mar/30/2024</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
+                                        <tr *ngFor="let item of listRequestLoanAccount">
+                                            <th scope="row">
+                                                <button class="btn btn-sm btn-link" (click)="viewBreakDown(item)">
+                                                    R{{ item.id | number : '3.0'}}
+                                                </button>
+                                            </th>
+                                            <td>{{ item.users.firstname }} {{ item.users.lastname }}</td>
+                                            <td>₱ {{ item.amount | number }}</td>
+                                            <!-- <td>10%</td>
+                                            <td>₱ {{ item.total_amount_loan_and_interest }}</td>
+                                            <td> {{ item.no_months }}</td>
+                                            <td> {{ term_counts(item.loan_logs) }}</td>
+                                            <td> {{ item.date_paid_off | date : 'MMM-yyyy' }}</td> -->
+                                            <td>
+                                                <span *ngIf="!item.is_approved && item.is_active" class="badge bg-info">For Approval</span>
+                                                <span *ngIf="item.is_approved && item.is_active" class="badge bg-success">Approved</span>
+                                                <span *ngIf="!item.is_approved && !item.is_active" class="badge bg-danger">Rejected</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-success">Approve</button>
+                                                <button type="button" class="btn btn-sm btn-warning">Reject</button>
+                                                <button type="button" class="btn btn-sm btn-info" (click)="viewBreakDown(item)">Info</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

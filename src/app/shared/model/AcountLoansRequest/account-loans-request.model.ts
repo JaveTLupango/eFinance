@@ -1,4 +1,5 @@
 import { LoanContributionBreakDown } from "../bank/contributionBreakDown/contribution-break-down";
+import { Users } from "../user/users.model";
 
 export class AccountLoansRequest {
   id : number = 0;
@@ -21,10 +22,9 @@ export class AccountLoansRequest {
   status : string = "For Review";
   created_at : Date = new Date();
   updated_at : Date = new Date();
-  approved_by : number = 0;
   aprroved_date : Date = new Date();
   is_approved : boolean = false;
-  release_by : number = 0;
+  release_by : Users = new Users();
   release_date : Date = new Date();
   is_release : boolean = false;
   amount_interest_per_month : number = 0;
@@ -34,6 +34,9 @@ export class AccountLoansRequest {
   no_months : number = 0;
   is_paid : boolean = false;
   paid_off_date : Date = new Date();
-  verified_by : number = 0;
+  verified_by : Users = new Users();
   verified_date : Date = new Date();
+  users : Users = new Users();
+  approved_by : Users = new Users();
+
 }

@@ -13,6 +13,8 @@ export class UserLoanInfoComponent {
   retval : any;
   loanInfo : AccountLoansRequest = new AccountLoansRequest();
   loanContributionBreakDown : LoanContributionBreakDown[] = [];
+  role : any = localStorage.getItem('UserRole');
+  userRole : boolean= false;
   monthNow: string = '';
   dateNow : Date = new Date();
   totalAmountOverDue : number = 0;
@@ -25,12 +27,13 @@ export class UserLoanInfoComponent {
   }
 
   ngOnInit() {
+    this.userRole = this.role == 1 ? true : false; // true admin, false user
     this.monthNow = this.dateNow.toLocaleString('default', { month: 'long' });
     this.retval =history.state;
+    console.log(this.retval);
     this.loanInfo = this.retval;
     this.loanContributionBreakDown = this.loanInfo.loan_logs;
     this.getTotalPayableAmount();
-
     }
 
     getTotalPayableAmount()
@@ -62,6 +65,11 @@ export class UserLoanInfoComponent {
                 this.paidAsOfThisMonth =  Number(this.paidAsOfThisMonth) + Number(e.amount);
               }
       });
+    }
+
+    count_term(model: LoanContributionBreakDown[])
+    {
+      return model.length;
     }
 
 }

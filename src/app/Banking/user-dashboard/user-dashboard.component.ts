@@ -36,7 +36,6 @@ export class UserDashboardComponent {
     this.service.getLoanAccountByUser().subscribe({
       next: (data) =>
         {
-          console.log(data);
           if(data.status_code == 200)
           {
             this.loanDetails.list_of_account = data.list_of_account;
@@ -65,7 +64,6 @@ export class UserDashboardComponent {
         e.loan_logs.forEach( i =>
           {
             var month = new Date(i.due_date).getMonth();
-            console.log('logs ' + month);
             if(!Boolean(i.is_paid) && month == monthNow)
             {
               this.totalAmountDue =  Number( this.totalAmountDue) + Number(i.amount)
@@ -99,6 +97,5 @@ export class UserDashboardComponent {
     // console.log(this.loanInfo);
     this.router.navigateByUrl('/user-loan-info', { state : model});
   }
-
 
 }

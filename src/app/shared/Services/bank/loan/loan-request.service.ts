@@ -33,6 +33,16 @@ export class LoanRequestService {
     const apiURL = this.baseurl.url_api+"/loan/getloanlist";
 
     return this.http.get<any>(apiURL,options);
+
+  }
+
+  getuserwithloans()
+  {
+    console.log(localStorage.getItem('AuthToken'));
+    const headers = new HttpHeaders()
+            .set("Authorization", "Bearer "+localStorage.getItem('AuthToken'));
+    const apiURL = this.baseurl.url_api+"/loan/getuserwithloans";
+        return this.http.get<any>(apiURL,{headers});
   }
 }
 

@@ -185,60 +185,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <!-- Large Modal -->
-                                <!-- <div class="modal fade" id="largeModal" tabindex="-1" backdrop="static" keyboard="false">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Large Modal</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <table class="table table-borderless datatable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Account</th>
-                                                            <th scope="col">Loan Amount</th>
-                                                            <th scope="col">+ Interest</th>
-                                                            <th scope="col">Date</th>
-                                                            <th scope="col">PayOff</th>
-                                                            <th scope="col">Status</th>
-                                                            <th *ngIf="userRole" scope="col">Options</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let item of listLoanAccount">
-                                                            <th scope="row">
-                                                                <button class="btn btn-sm btn-link" (click)="viewBreakDown(item)" data-bs-toggle="modal" data-bs-target="#largeModal">L-{{ item.id | number:'3.0' }}</button>
-                                                            </th>
-                                                            <td>₱{{ item.amount }}</td>
-                                                            <td>₱{{ item.total_amount_loan_and_interest }}</td>
-                                                            <td>{{ item.date_loan|date:'MMM/dd/yyyy'}}</td>
-                                                            <td>{{ item.date_paid_off|date:'MMM/dd/yyyy'}}</td>
-                                                            <td>
-                                                                <span *ngIf="item.is_active && item.is_approved && item.is_release" class="badge bg-success">Active</span>
-                                                                <span *ngIf="item.is_active && item.is_approved && !item.is_release" class="badge bg-success">For Releasing</span>
-                                                                <span *ngIf="item.is_active && !item.is_approved && !item.is_release" class="badge bg-warning">For Approval</span>
-                                                                <span *ngIf="!item.is_active" class="badge bg-danger">Reject</span>
-                                                            </td>
-                                                            <td *ngIf="userRole">
-                                                                <button *ngIf="item.is_active && item.is_approved" type="button" class="btn btn-sm" disabled>Approved</button>
-                                                                <button *ngIf="!item.is_active && !item.is_approved" type="button" class="btn btn-sm" disabled>Rejected</button>
-                                                                <button *ngIf="item.is_active && !item.is_approved" type="button" class="btn btn-sm btn-primary">Approve</button>
-                                                                <button *ngIf="item.is_active && !item.is_approved" type="button" class="btn btn-sm btn-danger">Reject</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <!-- End Large Modal-->
                             </div>
                         </div>
                     </div>
