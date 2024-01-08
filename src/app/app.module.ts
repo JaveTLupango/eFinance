@@ -33,6 +33,7 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { DatePipe } from '@angular/common';
 import { UserLoanInfoComponent } from './Banking/user-loan-info/user-loan-info.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
