@@ -29,12 +29,16 @@ export class LoginComponent {
 
   ngOnInit()
   {
-    var isLogin = this.appC.isLogin;
-    console.log(isLogin);
-    if(isLogin)
+    if(localStorage.getItem('AuthToken') != null)
     {
-      this.router.navigate(['/home']);
+      this.router.navigate(['']);
     }
+    // var isLogin = this.appC.isLogin;
+    // console.log(isLogin);
+    // if(isLogin)
+    // {
+
+    // }
   }
 
   onSubmit()
@@ -53,7 +57,7 @@ export class LoginComponent {
           console.log(data);
           localStorage.setItem('Login', data);
           localStorage.setItem('AuthToken', data.token);
-          this.userModel = data.data;          
+          this.userModel = data.data;
           localStorage.setItem('UserInfo', JSON.stringify(this.userModel));
           localStorage.setItem('UserId', data.data.id);
           localStorage.setItem('UserRole', data.data.user_role);
@@ -65,7 +69,10 @@ export class LoginComponent {
             showConfirmButton: false,
             timer: 2000
           });
-          this.router.navigate(['']);
+          setTimeout(() => {
+              window.location.reload();
+              //this.router.navigate(['']);
+          }, 2000);
         }
         else{
             localStorage.clear();

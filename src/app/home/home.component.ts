@@ -11,5 +11,6 @@ export class HomeComponent {
     ngOnInit()
     {
       this.userRole = this.role == 1 ? true : false;
+      console.log(localStorage.getItem('UserRole'));
     }
 }
