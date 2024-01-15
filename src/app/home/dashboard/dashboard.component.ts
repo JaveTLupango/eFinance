@@ -21,6 +21,7 @@ export class DashboardComponent
   listRequestLoanAccount : AccountLoansRequest[] = [];
   service : LoanRequestService = new LoanRequestService(this.http);
   listLoanBreakdown : LoanContributionBreakDown[] = [];
+  list_reject_loan_request : AccountLoansRequest[] = [];
 
   totalActiveLoanAccount : number = 0;  // active loan
   totalRequestLoanAccount : number = 0; // request loan
@@ -39,23 +40,21 @@ export class DashboardComponent
           this.listUserModel = data.users;
           this.listActiveLoanAccount = data.active_loan_account;
           this.listRequestLoanAccount = data.request_loan_account;
+          this.list_reject_loan_request = data.reject_loan_request;
 
-          console.log(this.listUserModel);
-          console.log(this.listActiveLoanAccount);
-          console.log(this.listRequestLoanAccount);
-
+          console.log(this.list_reject_loan_request);
         },
         error: (error)=>
         {
-          console.log(error);        
+          console.log(error);
         },
         complete : () =>
-        {  
+        {
             this.totalActiveLoanAccount = this.listActiveLoanAccount.length;
             this.totalRequestLoanAccount = this.listRequestLoanAccount.length;
             this.totalActiveUser = this.listUserModel.length;
 
-            
+
             var e_date = new Date();
             var monthNow = e_date.getMonth();
 
@@ -70,7 +69,7 @@ export class DashboardComponent
                     {
                       this.totalDueAmount =  Number( this.totalDueAmount) + Number(i.amount)
                     }
-                    
+
                     if(!Boolean(i.is_paid) && e_date.getTime() > mmount)
                     {
                       this.totalOverDueAmount =  Number( this.totalOverDueAmount) + Number(i.amount)
@@ -84,7 +83,7 @@ export class DashboardComponent
             });
 
             this.listUserModel.forEach(u =>
-              {                
+              {
                 console.log(u.total_loan_amount);
                 u.loan_account.forEach(l =>
                   {
@@ -109,7 +108,7 @@ export class DashboardComponent
       });
 
       return total;
-  } 
+  }
 
   totalLoanAccountWithInterest(model: AccountLoansRequest[])
   {
@@ -129,9 +128,42 @@ export class DashboardComponent
   {
       return list.length;
   }
-  
+
   viewBreakDown(model : AccountLoansRequest)
   {
     this.router.navigateByUrl('/user-loan-info', { state : model});
+  }
+
+  requestApprove_Reject(model : AccountLoansRequest, stat : boolean)
+  {
+      if(stat)
+      {
+        model.user_id = Number(localStorage.getItem('UserId')); //
+        model.is_approved = true;
+        model.aprroved_date = new Date();
+        this.service.approvedLoanRequest(model);
+      }
+      else{
+        model.status = "Reject By userid UA-"+ localStorage.getItem('UserId'); //
+        model.is_active = false;
+        this.service.rejectLoanRequest(model);
+      }
+  }
+
+  
+  requestRelease_Reject(model : AccountLoansRequest, stat : boolean)
+  {
+      if(stat)
+      {
+        model.user_id = Number(localStorage.getItem('UserId')); //
+        model.is_release = true;
+        model.release_date = new Date();
+        this.service.releaseLoanRequest(model);
+      }
+      else{
+        model.status = "Reject By userid UA-"+ localStorage.getItem('UserId'); //
+        model.is_active = false;
+        this.service.reject_releaseLoanRequest(model);
+      }
   }
 }

@@ -215,7 +215,6 @@
                     </div>
                     <!-- End Recent Sales -->
 
-
                     <!-- Recent Sales -->
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
@@ -252,18 +251,52 @@
                                             <td> {{ item.date_paid_off | date : 'MMM-yyyy' }}</td> -->
                                             <td>
                                                 <span *ngIf="!item.is_approved && item.is_active" class="badge bg-info">For Approval</span>
-                                                <span *ngIf="item.is_approved && item.is_active" class="badge bg-success">Approved</span>
-                                                <span *ngIf="!item.is_approved && !item.is_active" class="badge bg-danger">Rejected</span>
+                                                <span *ngIf="item.is_approved && item.is_active && !item.is_release" class="badge bg-success">For Releasing</span>
+                                                <span *ngIf="item.is_approved && item.is_active && item.is_release" class="badge bg-success">Released</span>
+                                                <span *ngIf="!item.is_approved && !item.is_active && !item.is_release" class="badge bg-danger">Rejected</span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-success">Approve</button>
-                                                <button type="button" class="btn btn-sm btn-warning">Reject</button>
+                                                <button type="button" *ngIf="!item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-success" (click)="requestApprove_Reject(item, true)">Approve</button>
+                                                <button type="button" *ngIf="!item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-warning" (click)="requestApprove_Reject(item, false)">Reject</button>
+                                                <button type="button" *ngIf="item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-success" (click)="requestRelease_Reject(item, true)">Release</button>
+                                                <button type="button" *ngIf="item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-warning" (click)="requestRelease_Reject(item, false)">Reject</button>
                                                 <button type="button" class="btn btn-sm btn-info" (click)="viewBreakDown(item)">Info</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
 
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Recent Sales -->
+
+                    <!-- User With Loans List -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Rejected Loan Request <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Interest</th>
+                                            <th scope="col">+ Interest</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let req of list_reject_loan_request">
+                                            <th scope="row"><a href="#">L{{ req.id | number : '3.0' }}</a></th>
+                                            <td>{{ req.users.firstname }} {{ req.users.lastname }}</td>
+                                            <td>₱{{ req.amount | number }}</td>
+                                            <td>10%</td>
+                                            <td>₱{{ req.total_amount_loan_and_interest | number}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>
