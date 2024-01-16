@@ -23,19 +23,31 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Interest</th>
-                                            <th scope="col">+ Interest</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr *ngFor="let req of list_reject_loan_request">
-                                        <th scope="row"><a href="#">L{{ req.id | number : '3.0' }}</a></th>
-                                        <td>{{ req.users.firstname }} {{ req.users.lastname }}</td>
-                                        <td>₱{{ req.amount | number }}</td>
-                                        <td>10%</td>
-                                        <td>₱{{ req.total_amount_loan_and_interest | number}}</td>
-                                    </tr> -->
+                                        <tr *ngFor="let user of list_active">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>
+                                                <span *ngIf="user.is_active && !user.is_deleted && user.is_verified" class="badge bg-success">Active</span>
+                                                <span *ngIf="user.is_active && !user.is_deleted && !user.is_verified" class="badge bg-warning">Unverified</span>
+                                                <span *ngIf="user.is_active && user.is_deleted" class="badge bg-warning">Deleted</span>
+                                                <span *ngIf="!user.is_active && user.is_deleted" class="badge bg-warning">Blocked</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="user.user_role == 1" class="badge bg-success">Admin</span>
+                                                <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                <button type="button" class="btn btn-sm btn-warning">Block</button>
+                                                <button type="button" class="btn btn-sm btn-info">Info</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -60,19 +72,28 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Interest</th>
-                                            <th scope="col">+ Interest</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr *ngFor="let req of list_reject_loan_request">
-                                      <th scope="row"><a href="#">L{{ req.id | number : '3.0' }}</a></th>
-                                      <td>{{ req.users.firstname }} {{ req.users.lastname }}</td>
-                                      <td>₱{{ req.amount | number }}</td>
-                                      <td>10%</td>
-                                      <td>₱{{ req.total_amount_loan_and_interest | number}}</td>
-                                  </tr> -->
+                                        <tr *ngFor="let user of list_block">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>
+                                                <span *ngIf="!user.is_active" class="badge bg-warning">Blocked</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="user.user_role == 1" class="badge bg-success">Admin</span>
+                                                <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                <button type="button" class="btn btn-sm btn-warning">Block</button>
+                                                <button type="button" class="btn btn-sm btn-info">Info</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -97,19 +118,30 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Interest</th>
-                                            <th scope="col">+ Interest</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr *ngFor="let req of list_reject_loan_request">
-                                      <th scope="row"><a href="#">L{{ req.id | number : '3.0' }}</a></th>
-                                      <td>{{ req.users.firstname }} {{ req.users.lastname }}</td>
-                                      <td>₱{{ req.amount | number }}</td>
-                                      <td>10%</td>
-                                      <td>₱{{ req.total_amount_loan_and_interest | number}}</td>
-                                  </tr> -->
+                                        <tr *ngFor="let user of list_deleted">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>
+                                                <span *ngIf="user.is_active && !user.is_deleted && user.is_verified" class="badge bg-success">Active</span>
+                                                <span *ngIf="user.is_active && !user.is_deleted && !user.is_verified" class="badge bg-warning">Unverified</span>
+                                                <span *ngIf="!user.is_active && user.is_deleted" class="badge bg-warning">Deleted</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="user.user_role == 1" class="badge bg-success">Admin</span>
+                                                <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                <button type="button" class="btn btn-sm btn-warning">Block</button>
+                                                <button type="button" class="btn btn-sm btn-info">Info</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
