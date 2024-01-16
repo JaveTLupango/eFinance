@@ -32,6 +32,10 @@ import { UserDashboardComponent } from './Banking/user-dashboard/user-dashboard.
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { DatePipe } from '@angular/common';
 import { UserLoanInfoComponent } from './Banking/user-loan-info/user-loan-info.component';
+import { AllUsersComponent } from './users/all-users/all-users.component';
+import { ActiveUsersComponent } from './users/active-users/active-users.component';
+import { DeletedUsersComponent } from './users/deleted-users/deleted-users.component';
+import { BlockUsersComponent } from './users/block-users/block-users.component';
 
 
 @NgModule({
@@ -62,7 +66,11 @@ import { UserLoanInfoComponent } from './Banking/user-loan-info/user-loan-info.c
     UsersCreateLoanRequestComponent,
     UserDashboardComponent,
     DashboardComponent,
-    UserLoanInfoComponent
+    UserLoanInfoComponent,
+    AllUsersComponent,
+    ActiveUsersComponent,
+    DeletedUsersComponent,
+    BlockUsersComponent
   ],
   imports: [
     BrowserModule,
