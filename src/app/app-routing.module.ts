@@ -17,6 +17,10 @@ import { UsersLoansComponent } from './Banking/users-loans/users-loans.component
 import { UserCreateSavingsRequestComponent } from './Banking/user-create-savings-request/user-create-savings-request.component';
 import { UsersCreateLoanRequestComponent } from './Banking/users-create-loan-request/users-create-loan-request.component';
 import { UserLoanInfoComponent } from './Banking/user-loan-info/user-loan-info.component';
+import { AllUsersComponent } from './users/all-users/all-users.component';
+import { ActiveUsersComponent } from './users/active-users/active-users.component';
+import { BlockUsersComponent } from './users/block-users/block-users.component';
+import { DeletedUsersComponent } from './users/deleted-users/deleted-users.component';
 
 const routes: Routes = [
   // homepage route
@@ -36,6 +40,12 @@ const routes: Routes = [
  { path: 'user-create-savings' , component:UserCreateSavingsRequestComponent},
  { path: 'user-create-loans' , component:UsersCreateLoanRequestComponent},
  { path: 'user-loan-info' , component:UserLoanInfoComponent},
+ { path: 'all-users' , component:AllUsersComponent},
+ { path: 'users' , component:ActiveUsersComponent},
+ { path: 'block-users' , component:BlockUsersComponent},
+ { path: 'deleted-users' , component:DeletedUsersComponent},
+
+
 
 //  { path: 'system-settings' , component:},
 
