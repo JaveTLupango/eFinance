@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServicesService } from 'src/app/shared/Services/Users/user-services.service';
 import { Users } from 'src/app/shared/model/user/users.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-all-users',
@@ -17,7 +18,7 @@ export class AllUsersComponent {
     list_active : Users[] = [];
     list_block : Users[] = [];
     list_deleted : Users[] = [];
-    
+
     services: UserServicesService = new UserServicesService(this.http);
 
 
@@ -27,7 +28,7 @@ export class AllUsersComponent {
       console.log(localStorage.getItem('UserRole'));
       if(!this.userRole)
       {
-        this.router.navigate(['user-access-404']);        
+        this.router.navigate(['user-access-404']);
       }
       else
       {
@@ -58,4 +59,96 @@ export class AllUsersComponent {
       );
     }
 
+    deleteUser(id : number)
+    {
+      this.services.deleteUser(id).subscribe({
+        next: (data) =>
+            {
+              if(data.status_code == 200)
+              {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'User successfully deleted!',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+              }
+            },
+        error: (error) => {
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'User unsuccessfully deleted!',
+                      showConfirmButton: false,
+                      timer: 2000
+                    });
+            },
+        complete: () => {
+                this.onLoad();
+            }
+      });
+    }
+
+    blockUser(id : number)
+    {
+      this.services.blockUser(id).subscribe({
+        next: (data) =>
+            {
+              if(data.status_code == 200)
+              {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'User successfully blocked!',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+              }
+            },
+        error: (error) => {
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'User unsuccessfully blocked!',
+                      showConfirmButton: false,
+                      timer: 2000
+                    });
+            },
+        complete: () => {
+                this.onLoad();
+            }
+      });
+    }
+
+    recoverUser(id : number)
+    {
+      this.services.recoverUser(id).subscribe({
+        next: (data) =>
+            {
+              if(data.status_code == 200)
+              {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'User successfully recovered!',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+              }
+            },
+        error: (error) => {
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'User unsuccessfully recovered!',
+                      showConfirmButton: false,
+                      timer: 2000
+                    });
+            },
+        complete: () => {
+                this.onLoad();
+            }
+      });
+    }
 }

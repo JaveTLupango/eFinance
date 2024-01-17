@@ -55,12 +55,12 @@ export class LoginComponent {
         {
           debugger;
           console.log(data);
-          localStorage.setItem('Login', data);
-          localStorage.setItem('AuthToken', data.token);
+          // localStorage.setItem('Login', data);
+          // localStorage.setItem('AuthToken', data.token);
           this.userModel = data.data;
-          localStorage.setItem('UserInfo', JSON.stringify(this.userModel));
-          localStorage.setItem('UserId', data.data.id);
-          localStorage.setItem('UserRole', data.data.user_role);
+          // localStorage.setItem('UserInfo', JSON.stringify(this.userModel));
+          // localStorage.setItem('UserId', data.data.id);
+          // localStorage.setItem('UserRole', data.data.user_role);
 
           Swal.fire({
             position: 'top-end',

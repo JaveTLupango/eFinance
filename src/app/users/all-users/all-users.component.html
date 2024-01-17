@@ -43,8 +43,8 @@
                                                 <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                <button type="button" class="btn btn-sm btn-warning">Block</button>
+                                                <button type="button" class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">Delete</button>
+                                                <button type="button" class="btn btn-sm btn-warning" (click)="blockUser(user.id)">Block</button>
                                                 <button type="button" class="btn btn-sm btn-info">Info</button>
                                             </td>
                                         </tr>
@@ -89,15 +89,13 @@
                                                 <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                <button type="button" class="btn btn-sm btn-warning">Block</button>
+                                                <button type="button" class="btn btn-sm btn-warning" (click)="recoverUser(user.id)">Recover</button>
                                                 <button type="button" class="btn btn-sm btn-info">Info</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -137,8 +135,7 @@
                                                 <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                <button type="button" class="btn btn-sm btn-warning">Block</button>
+                                                <button type="button" class="btn btn-sm btn-warning" (click)="recoverUser(user.id)">Recover</button>
                                                 <button type="button" class="btn btn-sm btn-info">Info</button>
                                             </td>
                                         </tr>
