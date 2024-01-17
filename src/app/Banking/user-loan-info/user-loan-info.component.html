@@ -14,9 +14,17 @@
     <div class="col-12" *ngIf="userRole">
         <div class="card-body">
             <div class="row">
-                <div class="col-12">
-                    <button class="btn btn-primary">Approve</button>
-                    <button class="btn btn-danger">Reject</button>
+                <div class="col-12" *ngIf="loanInfo.is_active && !loanInfo.is_approved && !loanInfo.is_release">
+                    <button class="btn btn-primary" (click)="requestApprove_Reject(loanInfo, true)">Approve</button>
+                    <button class="btn btn-danger" (click)="requestApprove_Reject(loanInfo, false)">Reject</button>
+                </div>
+                <div class="col-12" *ngIf="loanInfo.is_active && loanInfo.is_approved && !loanInfo.is_release">
+                    <button class="btn btn-primary" (click)="requestRelease_Reject(loanInfo, true)">Release</button>
+                    <button class="btn btn-danger" (click)="requestRelease_Reject(loanInfo, false)">Reject</button>
+                </div>
+                <div class="col-12" *ngIf="!loanInfo.is_active">
+                    <button class="btn btn-primary" (click)="requestRe_Active(loanInfo)">Pre Active</button>
+                    <!-- <button class="btn btn-danger" (click)="requestRelease_Reject(loanInfo, false)">Delete</button> -->
                 </div>
             </div>
         </div>

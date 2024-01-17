@@ -99,5 +99,19 @@ export class LoanRequestService {
           }
         );
   }
+
+  re_active_loan_request(model: AccountLoansRequest)
+  {
+    console.log(localStorage.getItem('AuthToken'));
+    const headers = new HttpHeaders()
+            .set("Authorization", "Bearer "+localStorage.getItem('AuthToken'));
+    const apiURL = this.baseurl.url_api+"/loan/requestre_active";
+        return this.http.post<any>(apiURL,model,{headers}).subscribe(
+          data =>
+          {
+            console.log(data);
+          }
+        );
+  }
 }
 

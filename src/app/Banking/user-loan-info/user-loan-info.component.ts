@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { LoanRequestService } from 'src/app/shared/Services/bank/loan/loan-request.service';
 import { AccountLoansRequest } from 'src/app/shared/model/AcountLoansRequest/account-loans-request.model';
 import { LoanContributionBreakDown } from 'src/app/shared/model/bank/contributionBreakDown/contribution-break-down';
 
@@ -10,8 +12,12 @@ import { LoanContributionBreakDown } from 'src/app/shared/model/bank/contributio
 })
 export class UserLoanInfoComponent {
 
+  constructor(private router:Router,private activatedroute:ActivatedRoute, private http: HttpClient)
+  {
+  }
   retval : any;
   loanInfo : AccountLoansRequest = new AccountLoansRequest();
+  service : LoanRequestService = new LoanRequestService(this.http);
   loanContributionBreakDown : LoanContributionBreakDown[] = [];
   role : any = localStorage.getItem('UserRole');
   userRole : boolean= false;
@@ -22,9 +28,6 @@ export class UserLoanInfoComponent {
   totalPayableAmount : number = 0;
   paidAsOfThisMonth : number = 0;
 
-  constructor(private router:Router,private activatedroute:ActivatedRoute)
-  {
-  }
 
   ngOnInit() {
     this.userRole = this.role == 1 ? true : false; // true admin, false user
@@ -72,4 +75,43 @@ export class UserLoanInfoComponent {
       return model.length;
     }
 
+    requestApprove_Reject(model : AccountLoansRequest, stat : boolean)
+    {
+        if(stat)
+        {
+          model.user_id = Number(localStorage.getItem('UserId')); //
+          model.is_approved = true;
+          model.aprroved_date = new Date();
+          this.service.approvedLoanRequest(model);
+        }
+        else{
+          model.status = "Reject By userid UA-"+ localStorage.getItem('UserId'); //
+          model.is_active = false;
+          this.service.rejectLoanRequest(model);
+        }
+    }
+  
+    
+    requestRelease_Reject(model : AccountLoansRequest, stat : boolean)
+    {
+        if(stat)
+        {
+          model.user_id = Number(localStorage.getItem('UserId')); //
+          model.is_release = true;
+          model.release_date = new Date();
+          this.service.releaseLoanRequest(model);
+        }
+        else{
+          model.status = "Reject By userid UA-"+ localStorage.getItem('UserId'); //
+          model.is_active = false;
+          this.service.reject_releaseLoanRequest(model);
+        }
+    }
+
+    requestRe_Active(model : AccountLoansRequest)
+    {
+          model.status = "Reject By userid UA-"+ localStorage.getItem('UserId'); //
+          model.is_active = true;
+          this.service.re_active_loan_request(model);        
+    }
 }

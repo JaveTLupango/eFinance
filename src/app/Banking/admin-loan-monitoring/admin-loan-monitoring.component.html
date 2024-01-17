@@ -1,10 +1,10 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>Loan Monitoring</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Loan Monitoing</li>
             </ol>
         </nav>
     </div>
@@ -15,6 +15,28 @@
             <!-- Left side columns -->
             <div class="col-lg-10">
                 <div class="row">
+                    <!-- Customers Total Active Users  -->
+                    <div class="col-xxl-3 col-xl-12">
+                        <div class="card info-card customers-card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Banking<span>| Total Money</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-bank"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ totalActiveUser }}</h6>
+                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Customers Card -->
+
                     <!-- Balance Bank Amount Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
@@ -122,30 +144,6 @@
                     </div>
                     <!-- End Revenue Card -->
 
-                    <!-- Customers Total Active Users  -->
-                    <div class="col-xxl-3 col-xl-12">
-                        <div class="card info-card customers-card">
-
-                            <div class="card-body">
-                                <h5 class="card-title">Customers <span>| Total Active Users</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>{{ totalActiveUser }}</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- End Customers Card -->
-
                     <!-- laon Request List Card -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
@@ -188,24 +186,40 @@
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title">User With Loans <span>| List</span></h5>
+                                <h5 class="card-title">Active Loan <span>| List</span></h5>
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Amount</th>
-                                            <th scope="col">Interest</th>
-                                            <th scope="col">+ Interest</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let user of listUserModel">
-                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
-                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
-                                            <td>₱{{ totalLoanAccount(user.loan_account) | number }}</td>
-                                            <td>10%</td>
-                                            <td>₱{{ totalLoanAccountWithInterest(user.loan_account) | number}}</td>
+                                        <tr *ngFor="let item of listActiveLoanAccount">
+                                            <th scope="row">
+                                                <button class="btn btn-sm btn-link" (click)="viewBreakDown(item)">
+                                                    L{{ item.id | number : '3.0'}}
+                                                </button>
+                                            </th>
+                                            <td>{{ item.users.firstname }} {{ item.users.lastname }}</td>
+                                            <td>₱ {{ item.amount | number }}</td>
+
+                                            <td>
+                                                <span *ngIf="!item.is_approved && item.is_active" class="badge bg-info">For Approval</span>
+                                                <span *ngIf="item.is_approved && item.is_active && !item.is_release" class="badge bg-success">For Releasing</span>
+                                                <span *ngIf="item.is_approved && item.is_active && item.is_release" class="badge bg-success">Released</span>
+                                                <span *ngIf="!item.is_approved && !item.is_active && !item.is_release" class="badge bg-danger">Rejected</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" *ngIf="!item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-success" (click)="requestApprove_Reject(item, true)">Approve</button>
+                                                <button type="button" *ngIf="!item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-warning" (click)="requestApprove_Reject(item, false)">Reject</button>
+                                                <button type="button" *ngIf="item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-success" (click)="requestRelease_Reject(item, true)">Release</button>
+                                                <button type="button" *ngIf="item.is_approved && !item.is_release && item.is_active" class="btn btn-sm btn-warning" (click)="requestRelease_Reject(item, false)">Reject</button>
+                                                <button type="button" class="btn btn-sm btn-info" (click)="viewBreakDown(item)">Info</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -219,18 +233,13 @@
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title">User Loan Request<span>| List</span></h5>
+                                <h5 class="card-title">Loan Request<span>| List</span></h5>
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Amount</th>
-                                            <!-- <th scope="col">Interest</th> -->
-                                            <!-- <th scope="col">+ Interest</th>
-                                            <th scope="col">No Months</th>
-                                            <th scope="col">No Terms</th>
-                                            <th scope="col">Date Pay Off</th> -->
                                             <th scope="col">Status</th>
                                             <th scope="col">Option</th>
                                         </tr>
@@ -244,11 +253,7 @@
                                             </th>
                                             <td>{{ item.users.firstname }} {{ item.users.lastname }}</td>
                                             <td>₱ {{ item.amount | number }}</td>
-                                            <!-- <td>10%</td>
-                                            <td>₱ {{ item.total_amount_loan_and_interest }}</td>
-                                            <td> {{ item.no_months }}</td>
-                                            <td> {{ term_counts(item.loan_logs) }}</td>
-                                            <td> {{ item.date_paid_off | date : 'MMM-yyyy' }}</td> -->
+
                                             <td>
                                                 <span *ngIf="!item.is_approved && item.is_active" class="badge bg-info">For Approval</span>
                                                 <span *ngIf="item.is_approved && item.is_active && !item.is_release" class="badge bg-success">For Releasing</span>
@@ -289,8 +294,7 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let req of list_reject_loan_request">
-                                            <th scope="row">
-                                                <button class="btn btn-sm btn-link" (click)="viewBreakDown(req)">
+                                            <th scope="row"><button class="btn btn-sm btn-link" (click)="viewBreakDown(req)">
                                                 L{{ req.id | number : '3.0'}}
                                             </button></th>
                                             <td>{{ req.users.firstname }} {{ req.users.lastname }}</td>
@@ -301,6 +305,7 @@
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                     <!-- End Recent Sales -->

@@ -36,28 +36,22 @@ export class DashboardComponent
       this.service.getuserwithloans().subscribe({
         next:(data) =>
         {
-          console.log(data);
           this.listUserModel = data.users;
           this.listActiveLoanAccount = data.active_loan_account;
           this.listRequestLoanAccount = data.request_loan_account;
           this.list_reject_loan_request = data.reject_loan_request;
 
-          console.log(this.list_reject_loan_request);
         },
         error: (error)=>
         {
-          console.log(error);
         },
         complete : () =>
         {
             this.totalActiveLoanAccount = this.listActiveLoanAccount.length;
             this.totalRequestLoanAccount = this.listRequestLoanAccount.length;
             this.totalActiveUser = this.listUserModel.length;
-
-
             var e_date = new Date();
             var monthNow = e_date.getMonth();
-
             this.listActiveLoanAccount.forEach( a => {
                 this.totalLoanedAmount = this.totalLoanedAmount + Number(a.amount);
                 a.loan_logs.forEach(i =>
