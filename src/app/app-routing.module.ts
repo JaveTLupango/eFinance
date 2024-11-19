@@ -22,6 +22,7 @@ import { ActiveUsersComponent } from './users/active-users/active-users.componen
 import { BlockUsersComponent } from './users/block-users/block-users.component';
 import { DeletedUsersComponent } from './users/deleted-users/deleted-users.component';
 import { AdminLoanMonitoringComponent } from './Banking/admin-loan-monitoring/admin-loan-monitoring.component';
+import { UserLoanTermDetailsComponent } from './Banking/user-loan-term-details/user-loan-term-details.component';
 
 const routes: Routes = [
   // homepage route
@@ -41,6 +42,7 @@ const routes: Routes = [
  { path: 'user-create-savings' , component:UserCreateSavingsRequestComponent},
  { path: 'user-create-loans' , component:UsersCreateLoanRequestComponent},
  { path: 'user-loan-info' , component:UserLoanInfoComponent},
+ { path: 'user-loan-term-details' , component:UserLoanTermDetailsComponent},
  { path: 'all-users' , component:AllUsersComponent},
  { path: 'users' , component:ActiveUsersComponent},
  { path: 'block-users' , component:BlockUsersComponent},

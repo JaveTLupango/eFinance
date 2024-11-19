@@ -355,8 +355,8 @@
                                     <tbody>
                                         <tr *ngFor="let item of loanContributionBreakDown">
                                             <th scope="row">
-                                                <span class="btn btn-sm">
-                                                  {{ item.term_no }}</span>
+                                              <button class="btn btn-sm btn-link" (click)="viewTermDetails(item)">
+                                                  {{ item.term_no }}</button>
                                             </th>
                                             <td>₱{{ item.amount }}</td>
                                             <td>{{ item.due_date|date:'MMM/dd/yy'}}</td>

@@ -114,4 +114,12 @@ export class UserLoanInfoComponent {
           model.is_active = true;
           this.service.re_active_loan_request(model);        
     }
+
+    viewTermDetails(model : LoanContributionBreakDown)
+    {
+      this.router.navigateByUrl('/user-loan-term-details', { state : {
+        'loanInfo' : this.loanInfo,
+        'term' : model
+      }});
+    }
 }
