@@ -50,14 +50,14 @@ export class AppComponent {
             {
               this.isLogin = false;
             }
-            
+
             if(localStorage.getItem('AuthToken') === null)
             {
               this.router.navigate(['/login']);
             }
           }
 
-          
+
         }
       }
       );

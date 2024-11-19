@@ -77,16 +77,19 @@ export class UsersCreateLoanRequestComponent {
       {
         this.accountLoanRequest.is_monthly = true;
         this.listContributionBreakdown = this.bdcService.loanMonthly(this.accountLoanRequest);
+        this.accountLoanRequest.extension_fee_per_day = 50;
       }
       else if(this.accountLoanRequest.no_month_term == 2)
       {
         this.accountLoanRequest.is_mid_monthly = true;
         this.listContributionBreakdown = this.bdcService.loanSemiMonthly(this.accountLoanRequest);
+        this.accountLoanRequest.extension_fee_per_day = 25;
       }
       else if(this.accountLoanRequest.no_month_term == 4)
       {
         this.accountLoanRequest.is_weekly = true;
         this.listContributionBreakdown = this.bdcService.loanWeekly(this.accountLoanRequest);
+        this.accountLoanRequest.extension_fee_per_day = 10;
       }
 
       let totalcounts = this.listContributionBreakdown.length;

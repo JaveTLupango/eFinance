@@ -108,8 +108,9 @@
                                 <input type="text" class="form-control" name="extension_fee_per_day" [(ngModel)]="accountLoanRequestModel.extension_fee_per_day" disabled>
                             </div>
                             <div class="">
-                                <button type="submit" (click)="NgSubmitSavingRequest(accountLoanRequestModel)" class="btn btn-primary">Submit</button>
-                                <button type="reset" (click)="onReset()" class="btn btn-secondary">Reset</button>
+                              <button *ngIf="listContributionBreakdown.length == 0" disabled class="btn btn-primary" >Submit</button>
+                              <button *ngIf="listContributionBreakdown.length > 0" type="submit" (click)="NgSubmitSavingRequest(accountLoanRequestModel)" class="btn btn-primary" >Submit</button>
+                              <button type="reset" (click)="onReset()" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
                     </div>
