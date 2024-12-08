@@ -365,7 +365,7 @@
                                                 <span *ngIf="item.is_paid && !item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-info" title="Payment Request">Invoice</span>
                                                 <span *ngIf="item.is_paid && item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-primary">Received</span>
                                                 <span *ngIf="item.is_paid && item.is_payment_recieved && item.is_approved && !item.is_rejected" class="badge bg-success">Paid</span>
-                                                <span *ngIf="item.is_rejected" class="badge bg-danger">Rejected</span>
+                                                <span *ngIf="item.is_paid && item.is_rejected" class="badge bg-danger">Rejected</span>
                                             </td>
                                         </tr>
                                     </tbody>

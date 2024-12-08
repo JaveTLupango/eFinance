@@ -12,8 +12,7 @@ export class LoanRequestService {
   baseurl : BaseURL = new BaseURL();
   create(model: AccountLoansRequest)
   {
-    console.log(localStorage.getItem('AuthToken'));
-    const headers = new HttpHeaders()
+   const headers = new HttpHeaders()
             .set("Authorization", "Bearer "+localStorage.getItem('AuthToken'));
     const apiURL = this.baseurl.url_api+"/loan/create";
         return this.http.post<any>(apiURL,model,{headers});

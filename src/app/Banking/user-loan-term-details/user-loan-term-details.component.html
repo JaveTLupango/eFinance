@@ -1,6 +1,6 @@
 <main id="main" class="main">
   <div class="pagetitle">
-      <h1>L{{ loanInfo.id | number : '3.0' }} - {{ loanInfo.loan_purpose_name }} - {{ loanTerm.term_no }}</h1>
+      <h1>L{{ loanInfo.id | number : '3.0' }} | {{ loanInfo.loan_purpose_name.toUpperCase() }} | {{ loanTerm.term_no.toUpperCase() }} | {{ loanTerm.status.toUpperCase() }}</h1>
       <nav>
           <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -12,30 +12,15 @@
       </nav>
   </div>
   <!-- End Page Title -->
-  <div class="col-12" *ngIf="userRole">
-      <!-- <div class="card-body">
-          <div class="row">
-              <div class="col-12" *ngIf="loanInfo.is_active && !loanInfo.is_approved && !loanInfo.is_release">
-                  <button class="btn btn-primary" (click)="requestApprove_Reject(loanInfo, true)">Approve</button>
-                  <button class="btn btn-danger" (click)="requestApprove_Reject(loanInfo, false)">Reject</button>
-              </div>
-              <div class="col-12" *ngIf="loanInfo.is_active && loanInfo.is_approved && !loanInfo.is_release">
-                  <button class="btn btn-primary" (click)="requestRelease_Reject(loanInfo, true)">Release</button>
-                  <button class="btn btn-danger" (click)="requestRelease_Reject(loanInfo, false)">Reject</button>
-              </div>
-              <div class="col-12" *ngIf="!loanInfo.is_active">
-                  <button class="btn btn-primary" (click)="requestRe_Active(loanInfo)">Pre Active</button>
-              </div>
-          </div>
-      </div> -->
-  </div>
+
+
   <section class="section dashboard">
       <div class="row">
           <!-- Left side columns -->
           <div class="col-lg-12">
               <div class="row">
-                    <div class="col-xxl-3 col-xl-6">
-                        <div class="card info-card customers-card">                            
+                    <div class="col-xxl-3 col-sm-6">
+                        <div class="card info-card customers-card">
                             <div class="card-body">
                                 <h5 class="card-title">Term <span>| Amount</span></h5>
                                 <div class="d-flex align-items-center">
@@ -50,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                  <div class="col-xxl-3 col-md-6">
+                  <div class="col-xxl-3 col-sm-6">
                       <div class="card info-card sales-card">
 
                           <div class="filter">
@@ -83,7 +68,7 @@
                   </div>
                   <!-- End Sales Card -->
                   <!-- Revenue Card -->
-                  <div class="col-xxl-3 col-md-6">
+                  <div class="col-xxl-3 col-sm-6">
                       <div class="card info-card revenue-card">
 
                           <div class="filter">
@@ -118,7 +103,7 @@
                   </div>
                   <!-- End Revenue Card -->
                   <!-- Customers Card -->
-                  <div class="col-xxl-3 col-xl-12">
+                  <div class="col-xxl-3 col-sm-6">
                       <div class="card info-card customers-card">
                           <div class="filter">
                               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -147,81 +132,156 @@
                       </div>
                   </div>
 
-                  <!-- Account Loan Breakdown -->
+                  <div class="col-12" *ngIf="!userRole || loanInfo.user_id == user_id">
+                    <div class="row mb-3">
+                      <button *ngIf="!isShowAttached" type="button" class="btn btn-primary col-3 right" (click)="showAttached(true)" >Made Payment | Attachment +</button>
+                      <div *ngIf="isShowAttached"  class="col-sm-12">
+                        <div class="form-floating mb-3">
+                          <input type="number" class="form-control" id="floatingInput" placeholder="Amount" [(ngModel)]="proofOfPayment.amount">
+                          <label for="floatingInput">Amount</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control" placeholder="Notes" id="floatingTextarea" style="height: 100px;" [(ngModel)]="proofOfPayment.notes" maxlength="50"></textarea>
+                          <label for="floatingTextarea">Notes</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <div class="col-sm-12">
+                              <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)">
+                          </div>
+                        </div>
+                        <div class="modal-footer" style="margin-top: 1%;">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showAttached(false)">Close</button>
+                          <button *ngIf="proofOfPayment.amount != null && proofOfPayment.notes != '' && base64String != ''" type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveProofOfPayment()">Save changes</button>
+                          <button *ngIf="proofOfPayment.amount == null || proofOfPayment.notes == '' || base64String == ''" type="button" class="btn btn-primary" style="margin-left: 1%;" disabled>Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- *ngIf="userRole" -->
+
+                  <!-- Account Loan payment proof -->
                   <div class="col-12">
-                      <div class="card recent-sales overflow-auto">                         
+                      <div class="card recent-sales overflow-auto">
                             <div class="card-body">
                               <h5 class="card-title">Attach Proof of Payment <span>| List</span></h5>
-                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal" data-backdrop="static" data-keyboard="false">Attach +</button>
                               <table class="table table-borderless datatable">
                                   <thead>
                                       <tr>
                                           <th scope="col">#</th>
                                           <th scope="col">Amount</th>
-                                          <th scope="col">Attached</th>
-                                          <th scope="col">Status</th>
+                                          <th scope="col">Notes</th>
+                                          <th scope="col">Date</th>
+                                          <th scope="col">View</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      <!-- <tr *ngFor="let item of loanContributionBreakDown">
+                                      <tr *ngFor="let item of listOfAttachment">
                                           <th scope="row">
                                               <span class="btn btn-sm">
-                                                {{ item.term_no }}</span>
+                                                {{ item.link_id }}</span>
                                           </th>
                                           <td>₱{{ item.amount }}</td>
-                                          <td>{{ item.due_date|date:'MMM/dd/yy'}}</td>
+                                          <td>{{ item.notes }}</td>
+                                          <td>{{ item.created_at|date:'MMM/dd/yy HH:mm:ss'}}</td>
                                           <td>
-                                              <span *ngIf="!item.is_paid && !item.is_payment_recieved && !item.is_approved  && !item.is_approved && !item.is_rejected" class="badge bg-warning" title="Payable">Payable</span>
-                                              <span *ngIf="item.is_paid && !item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-info" title="Payment Request">Invoice</span>
-                                              <span *ngIf="item.is_paid && item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-primary">Received</span>
-                                              <span *ngIf="item.is_paid && item.is_payment_recieved && item.is_approved && !item.is_rejected" class="badge bg-success">Paid</span>
-                                              <span *ngIf="item.is_rejected" class="badge bg-danger">Rejected</span>
+                                            <button class="btn btn-primary" (click)="viewAttachment(item)" >View Attachment</button>
                                           </td>
-                                      </tr> -->
+                                      </tr>
                                   </tbody>
                               </table>
                           </div>
                       </div>
-                  </div>    
+                  </div>
                   <!-- End Recent Sales -->
+
+
+                <div class="col-12" *ngIf="userRole && loanInfo.user_id != user_id">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12" *ngIf="loanTerm.is_paid && !loanTerm.is_approved && !proofOfPayment.adminAction.is_action">
+                                <button class="btn btn-primary" (click)="requestApprove_Reject(true)">Approve</button>
+                                <button class="btn btn-danger" (click)="requestApprove_Reject(false)">Reject</button>
+                            </div>
+                            <!-- <div class="col-12" *ngIf="!loanTerm.is_paid">
+                                <button class="btn btn-primary" (click)="requestRe_Active(loanInfo)">Pre Active</button>
+                            </div> -->
+
+                            <div *ngIf="proofOfPayment.adminAction.is_action"  class="col-sm-12">
+
+                                <div class="form-floating mb-3">
+                                  <textarea class="form-control" placeholder="Provide a notes" id="floatingTextarea" style="height: 100px;" [(ngModel)]="proofOfPayment.notes" maxlength="50"></textarea>
+                                  <label for="floatingTextarea">Provide a notes</label>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 1%;">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeAdminAction()">Close</button>
+                                  <button *ngIf="proofOfPayment.notes != ''" type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveAdminAction()">Save changes</button>
+                                  <button *ngIf="proofOfPayment.notes == ''" type="button" class="btn btn-primary" style="margin-left: 1%;" disabled>Save changes</button>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- User Account List -->
+                  <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                          <div class="card-body">
+                            <h5 class="card-title">Activity Logs <span>| List</span></h5>
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listOfSystemLogs">
+                                        <th scope="row">
+                                            <span class="btn btn-sm">
+                                              {{ item.tdt |date:'MMM/dd/yy HH:mm:ss'}}</span>
+                                        </th>
+                                        <td>{{ item.users.firstname }}</td>                                         
+                                        <td>{{ item.task_action_logs}}</td>
+                                        <td>
+                                          <span class="btn btn-sm" *ngIf="item.task_notes.includes('Reject')" style="background-color: red; color: aliceblue;"> {{ item.task_notes }} </span>
+                                          <span class="btn btn-sm" *ngIf="item.task_notes.includes('Approved')" style="background-color: green; color: aliceblue"> {{ item.task_notes }} </span>
+                                          <span class="btn btn-sm" *ngIf="!item.task_notes.includes('Approved') && !item.task_notes.includes('Reject')" > {{ item.task_notes }} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 </div>
+                <!-- End Recent Sales -->
+
               </div>
           </div>
           <!-- End Left side columns -->
+
       </div>
 
-      <!-- Modal -->
-        <div class="modal fade" id="largeModal" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title">Bring Payment Proof</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row g-3">                   
-                            <div class="col-12">
-                                <div class="form-floating">
-                                <textarea class="form-control" placeholder="Notes" [(ngModel)]="proofOfPayment.notes" id="floatingTextarea" style="height: 100px;"></textarea>
-                                <label for="floatingTextarea">Notes</label>
-                                </div>
-                            </div>                    
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="file" class="form-control" id="file" placeholder="File">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <!-- <img src=""> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
+
+
+      <div *ngIf="showModal" id="largeModal" class="modal fade show" aria-modal="true" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">View Attachment</h5>
+              <button type="button" class="btn-close" (click)="showHideModal()"></button>
             </div>
-        </div><!-- End Large Modal-->
+            <div class="modal-body">
+                <img src="data:image/png;base64,{{ this.proofOfPayment.image }}">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="showHideModal()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
   </section>
 </main>
