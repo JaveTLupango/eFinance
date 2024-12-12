@@ -1,0 +1,152 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>List of Users</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">All Users</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Users <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let user of list_active">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>
+                                                <span *ngIf="user.is_active && !user.is_deleted && user.is_verified" class="badge bg-success">Active</span>
+                                                <span *ngIf="user.is_active && !user.is_deleted && !user.is_verified" class="badge bg-warning">Unverified</span>
+                                                <span *ngIf="user.is_active && user.is_deleted" class="badge bg-warning">Deleted</span>
+                                                <span *ngIf="!user.is_active && user.is_deleted" class="badge bg-warning">Blocked</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="user.user_role == 1" class="badge bg-success">Admin</span>
+                                                <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">Delete</button>
+                                                <button type="button" class="btn btn-sm btn-warning" (click)="blockUser(user.id)">Block</button>
+                                                <button type="button" class="btn btn-sm btn-info">Info</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Block Users <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let user of list_block">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>
+                                                <span *ngIf="!user.is_active" class="badge bg-warning">Blocked</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="user.user_role == 1" class="badge bg-success">Admin</span>
+                                                <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-warning" (click)="recoverUser(user.id)">Recover</button>
+                                                <button type="button" class="btn btn-sm btn-info">Info</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Deleted Users <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let user of list_deleted">
+                                            <th scope="row"><a href="#">U{{ user.id | number : '3.0' }}</a></th>
+                                            <td>{{ user.firstname }} {{ user.lastname }}</td>
+                                            <td>
+                                                <span *ngIf="user.is_active && !user.is_deleted && user.is_verified" class="badge bg-success">Active</span>
+                                                <span *ngIf="user.is_active && !user.is_deleted && !user.is_verified" class="badge bg-warning">Unverified</span>
+                                                <span *ngIf="!user.is_active && user.is_deleted" class="badge bg-warning">Deleted</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="user.user_role == 1" class="badge bg-success">Admin</span>
+                                                <span *ngIf="user.user_role == 2" class="badge bg-success">User</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-warning" (click)="recoverUser(user.id)">Recover</button>
+                                                <button type="button" class="btn btn-sm btn-info">Info</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

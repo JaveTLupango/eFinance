@@ -1,0 +1,287 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+      <h1>L{{ loanInfo.id | number : '3.0' }} | {{ loanInfo.loan_purpose_name.toUpperCase() }} | {{ loanTerm.term_no.toUpperCase() }} | {{ loanTerm.status.toUpperCase() }}</h1>
+      <nav>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">User</li>
+              <li class="breadcrumb-item active">Loan Info</li>
+              <li class="breadcrumb-item active">L{{ loanInfo.id | number : '3.0' }} - {{ loanInfo.loan_purpose_name }}</li>
+              <li class="breadcrumb-item active">{{ loanTerm.term_no }}</li>
+          </ol>
+      </nav>
+  </div>
+  <!-- End Page Title -->
+
+
+  <section class="section dashboard">
+      <div class="row">
+          <!-- Left side columns -->
+          <div class="col-lg-12">
+              <div class="row">
+                    <div class="col-xxl-3 col-sm-6">
+                        <div class="card info-card customers-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Term <span>| Amount</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ loanTerm.amount | number }}</h6>
+                                        <span class="text-warning small pt-1 fw-bold">Due</span><span class="text-muted small pt-2 ps-1">as of {{ monthNow }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="col-xxl-3 col-sm-6">
+                      <div class="card info-card sales-card">
+
+                          <div class="filter">
+                              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                  <li class="dropdown-header text-start">
+                                      <h6>Filter</h6>
+                                  </li>
+                                  <li><a class="dropdown-item" href="#">Today</a></li>
+                                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                              </ul>
+                          </div>
+
+                          <div class="card-body">
+                              <h5 class="card-title">Loans <span>| Amount</span></h5>
+
+                              <div class="d-flex align-items-center">
+                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                      <i class="bi bi-cart"></i>
+                                  </div>
+                                  <div class="ps-3">
+                                      <h6>{{ loanInfo.amount }}</h6>
+                                      <span class="text-success small pt-1 fw-bold">₱{{ loanInfo.total_amount_loan_and_interest | number }}</span> <span class="text-muted small pt-2 ps-1">Amount w/ interest</span>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+                  <!-- End Sales Card -->
+                  <!-- Revenue Card -->
+                  <div class="col-xxl-3 col-sm-6">
+                      <div class="card info-card revenue-card">
+
+                          <div class="filter">
+                              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                  <li class="dropdown-header text-start">
+                                      <h6>Filter</h6>
+                                  </li>
+
+                                  <li><a class="dropdown-item" href="#">Today</a></li>
+                                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                              </ul>
+                          </div>
+
+                          <div class="card-body">
+                              <h5 class="card-title">Loans <span>| Payable Amount</span></h5>
+
+                              <div class="d-flex align-items-center">
+                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                      <i class="bi bi-currency-dollar"></i>
+                                  </div>
+                                  <div class="ps-3">
+                                      <h6>₱{{ totalPayableAmount | number }}</h6>
+                                      <span class="text-success small pt-1 fw-bold">₱{{ paidAsOfThisMonth|number }}</span> <span class="text-muted small pt-2 ps-1">Paid as of {{ monthNow }}.</span>
+
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+                  <!-- End Revenue Card -->
+                  <!-- Customers Card -->
+                  <div class="col-xxl-3 col-sm-6">
+                      <div class="card info-card customers-card">
+                          <div class="filter">
+                              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                  <li class="dropdown-header text-start">
+                                      <h6>Filter</h6>
+                                  </li>
+
+                                  <li><a class="dropdown-item" href="#">Today</a></li>
+                                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                              </ul>
+                          </div>
+                          <div class="card-body">
+                              <h5 class="card-title">Over Due <span>| Amount</span></h5>
+                              <div class="d-flex align-items-center">
+                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                      <i class="bi bi-currency-dollar"></i>
+                                  </div>
+                                  <div class="ps-3">
+                                      <h6>₱{{ totalAmountOverDue | number }}</h6>
+                                      <span class="text-danger small pt-1 fw-bold">Over Due</span><span class="text-muted small pt-2 ps-1">as of {{ monthNow }}</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-12" *ngIf="!userRole || loanInfo.user_id == user_id">
+                    <div class="row mb-3">
+                      <button *ngIf="!isShowAttached" type="button" class="btn btn-primary col-3 right" (click)="showAttached(true)" >Made Payment | Attachment +</button>
+                      <div *ngIf="isShowAttached"  class="col-sm-12">
+                        <div class="form-floating mb-3">
+                          <input type="number" class="form-control" id="floatingInput" placeholder="Amount" [(ngModel)]="proofOfPayment.amount">
+                          <label for="floatingInput">Amount</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control" placeholder="Notes" id="floatingTextarea" style="height: 100px;" [(ngModel)]="proofOfPayment.notes" maxlength="50"></textarea>
+                          <label for="floatingTextarea">Notes</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <div class="col-sm-12">
+                              <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)">
+                          </div>
+                        </div>
+                        <div class="modal-footer" style="margin-top: 1%;">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showAttached(false)">Close</button>
+                          <button *ngIf="proofOfPayment.amount != null && proofOfPayment.notes != '' && base64String != ''" type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveProofOfPayment()">Save changes</button>
+                          <button *ngIf="proofOfPayment.amount == null || proofOfPayment.notes == '' || base64String == ''" type="button" class="btn btn-primary" style="margin-left: 1%;" disabled>Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- *ngIf="userRole" -->
+
+                  <!-- Account Loan payment proof -->
+                  <div class="col-12">
+                      <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                              <h5 class="card-title">Attach Proof of Payment <span>| List</span></h5>
+                              <table class="table table-borderless datatable">
+                                  <thead>
+                                      <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">Amount</th>
+                                          <th scope="col">Notes</th>
+                                          <th scope="col">Date</th>
+                                          <th scope="col">View</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let item of listOfAttachment">
+                                          <th scope="row">
+                                              <span class="btn btn-sm">
+                                                {{ item.link_id }}</span>
+                                          </th>
+                                          <td>₱{{ item.amount }}</td>
+                                          <td>{{ item.notes }}</td>
+                                          <td>{{ item.created_at|date:'MMM/dd/yy HH:mm:ss'}}</td>
+                                          <td>
+                                            <button class="btn btn-primary" (click)="viewAttachment(item)" >View Attachment</button>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End Recent Sales -->
+
+
+                <div class="col-12" *ngIf="userRole && loanInfo.user_id != user_id">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12" *ngIf="loanTerm.is_paid && !loanTerm.is_approved && !proofOfPayment.adminAction.is_action">
+                                <button class="btn btn-primary" (click)="requestApprove_Reject(true)">Approve</button>
+                                <button class="btn btn-danger" (click)="requestApprove_Reject(false)">Reject</button>
+                            </div>
+                            <!-- <div class="col-12" *ngIf="!loanTerm.is_paid">
+                                <button class="btn btn-primary" (click)="requestRe_Active(loanInfo)">Pre Active</button>
+                            </div> -->
+
+                            <div *ngIf="proofOfPayment.adminAction.is_action"  class="col-sm-12">
+
+                                <div class="form-floating mb-3">
+                                  <textarea class="form-control" placeholder="Provide a notes" id="floatingTextarea" style="height: 100px;" [(ngModel)]="proofOfPayment.notes" maxlength="50"></textarea>
+                                  <label for="floatingTextarea">Provide a notes</label>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 1%;">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeAdminAction()">Close</button>
+                                  <button *ngIf="proofOfPayment.notes != ''" type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveAdminAction()">Save changes</button>
+                                  <button *ngIf="proofOfPayment.notes == ''" type="button" class="btn btn-primary" style="margin-left: 1%;" disabled>Save changes</button>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- User Account List -->
+                  <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                          <div class="card-body">
+                            <h5 class="card-title">Activity Logs <span>| List</span></h5>
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listOfSystemLogs">
+                                        <th scope="row">
+                                            <span class="btn btn-sm">
+                                              {{ item.tdt |date:'MMM/dd/yy HH:mm:ss'}}</span>
+                                        </th>
+                                        <td>{{ item.users.firstname }}</td>                                         
+                                        <td>{{ item.task_action_logs}}</td>
+                                        <td>
+                                          <span class="btn btn-sm" *ngIf="item.task_notes.includes('Reject')" style="background-color: red; color: aliceblue;"> {{ item.task_notes }} </span>
+                                          <span class="btn btn-sm" *ngIf="item.task_notes.includes('Approved')" style="background-color: green; color: aliceblue"> {{ item.task_notes }} </span>
+                                          <span class="btn btn-sm" *ngIf="!item.task_notes.includes('Approved') && !item.task_notes.includes('Reject')" > {{ item.task_notes }} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 </div>
+                <!-- End Recent Sales -->
+
+              </div>
+          </div>
+          <!-- End Left side columns -->
+
+      </div>
+
+
+
+      <div *ngIf="showModal" id="largeModal" class="modal fade show" aria-modal="true" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">View Attachment</h5>
+              <button type="button" class="btn-close" (click)="showHideModal()"></button>
+            </div>
+            <div class="modal-body">
+                <img src="data:image/png;base64,{{ this.proofOfPayment.image }}">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="showHideModal()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </section>
+</main>

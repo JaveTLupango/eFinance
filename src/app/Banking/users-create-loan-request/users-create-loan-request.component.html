@@ -1,0 +1,123 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Loans</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Loans</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Account Request</h5>
+                        <form class="row g-3" #accountLoanRequestForm="ngForm" (ngSubmit)="onSubmit()">
+                            <div class="col-12">
+                                <label for="inputNanme4" class="form-label">Loan Purpose</label>
+                                <input type="text" class="form-control" name="loan_purpose_name" [(ngModel)]="accountLoanRequest.loan_purpose_name">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputEmail4" class="form-label">Loan Amount</label>
+                                <input type="number" class="form-control" name="amount" [(ngModel)]="accountLoanRequest.amount">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputEmail4" class="form-label">Expected to Paid (Base on Month Selected)</label>
+                                <input type="month" [(ngModel)]="dateSelectMonth" class="form-control" id="start" name="start" min="{{ minMonths }}" max="{{ maxMonths }}">
+                                <!-- <input type="date" class="form-control" name="date_paid_off" [(ngModel)]="accountLoanRequest.date_paid_off"> -->
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Monthly Term</label>
+                                <select id="no_month_term" class="form-select" name="no_month_term" [(ngModel)]="accountLoanRequest.no_month_term">
+                                  <option  value="0" >Please Monthly Term</option>
+                                  <option selected value="4">Weekly - (Sat)</option>
+                                  <option  value="2">Semi Monthly (15th & 30th)</option>
+                                  <option  value="1">Monthly</option>
+                                </select>
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card" *ngIf="accountLoanRequestModel.loan_purpose_name != ''">
+                    <div class="card-body">
+                        <h5 class="card-title">Loan Contribution Breakdown</h5>
+                        <!-- Default Table -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Term</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listContributionBreakdown">
+                                    <th scope="row">{{ item.id }}</th>
+                                    <td>{{ item.term_no }}</td>
+                                    <td>{{ item.amount }}</td>
+                                    <td>{{ item.due_date | date:'MM/dd/yyyy'}}</td>
+                                    <td><span class="badge bg-success-light">Paid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Default Table Example -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body" *ngIf="accountLoanRequestModel.loan_purpose_name != ''">
+                        <h5 class="card-title">Loans Account Request</h5>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="inputNanme4" class="form-label">Savings Account Name</label>
+                                <input type="text" class="form-control" name="loan_purpose_name" [(ngModel)]="accountLoanRequestModel.loan_purpose_name" id="inputNanme4" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputEmail4" class="form-label">Total Amount Loan</label>
+                                <input type="text" class="form-control" name="amount" [(ngModel)]="accountLoanRequestModel.amount" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Monthly Term</label>
+                                <input type="text" class="form-control" name="no_month_term" value="Weekly - (Sat)" disabled *ngIf="accountLoanRequestModel.no_month_term == 4">
+                                <input type="text" class="form-control" name="no_month_term" value="Semi Monthly (15th & 30th)" disabled *ngIf="accountLoanRequestModel.no_month_term == 2">
+                                <input type="text" class="form-control" name="no_month_term" value="Monthly (30th)" disabled *ngIf="accountLoanRequestModel.no_month_term == 1">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Total Payable Amount</label>
+                                <input type="text" class="form-control" name="total_amount_loan_and_interest" [(ngModel)]="accountLoanRequestModel.total_amount_loan_and_interest" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Expected Amount Per Term</label>
+                                <input type="text" class="form-control" name="amount_per_gives" [(ngModel)]="accountLoanRequestModel.amount_per_gives" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Grace Period</label>
+                                <input type="text" class="form-control" name="num_day_grace_period" [(ngModel)]="accountLoanRequestModel.num_day_grace_period" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPassword4" class="form-label">Extention Fee Per Day</label>
+                                <input type="text" class="form-control" name="extension_fee_per_day" [(ngModel)]="accountLoanRequestModel.extension_fee_per_day" disabled>
+                            </div>
+                            <div class="">
+                              <button *ngIf="listContributionBreakdown.length == 0" disabled class="btn btn-primary" >Submit</button>
+                              <button *ngIf="listContributionBreakdown.length > 0" type="submit" (click)="NgSubmitSavingRequest(accountLoanRequestModel)" class="btn btn-primary" >Submit</button>
+                              <button type="reset" (click)="onReset()" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>

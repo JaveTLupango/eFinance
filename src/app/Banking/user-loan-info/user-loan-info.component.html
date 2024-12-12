@@ -1,0 +1,383 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>L{{ loanInfo.id | number : '3.0' }} - {{ loanInfo.loan_purpose_name }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">User</li>
+                <li class="breadcrumb-item active">Loan Info</li>
+                <li class="breadcrumb-item active">L{{ loanInfo.id | number : '3.0' }} - {{ loanInfo.loan_purpose_name }}</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+    <div class="col-12" *ngIf="userRole">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12" *ngIf="loanInfo.is_active && !loanInfo.is_approved && !loanInfo.is_release">
+                    <button class="btn btn-primary" (click)="requestApprove_Reject(loanInfo, true)">Approve</button>
+                    <button class="btn btn-danger" (click)="requestApprove_Reject(loanInfo, false)">Reject</button>
+                </div>
+                <div class="col-12" *ngIf="loanInfo.is_active && loanInfo.is_approved && !loanInfo.is_release">
+                    <button class="btn btn-primary" (click)="requestRelease_Reject(loanInfo, true)">Release</button>
+                    <button class="btn btn-danger" (click)="requestRelease_Reject(loanInfo, false)">Reject</button>
+                </div>
+                <div class="col-12" *ngIf="!loanInfo.is_active">
+                    <button class="btn btn-primary" (click)="requestRe_Active(loanInfo)">Pre Active</button>
+                    <!-- <button class="btn btn-danger" (click)="requestRelease_Reject(loanInfo, false)">Delete</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- Sales Card -->
+                    <div class="col-xxl-3 col-md-6">
+                        <div class="card info-card sales-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Loans <span>| Amount</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-cart"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ loanInfo.amount }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">₱{{ loanInfo.total_amount_loan_and_interest | number }}</span> <span class="text-muted small pt-2 ps-1">Amount w/ interest</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Sales Card -->
+                    <!-- Revenue Card -->
+                    <div class="col-xxl-3 col-md-6">
+                        <div class="card info-card revenue-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Loans <span>| Payable Amount</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ totalPayableAmount | number }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">₱{{ paidAsOfThisMonth|number }}</span> <span class="text-muted small pt-2 ps-1">Paid as of {{ monthNow }}.</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Revenue Card -->
+                    <!-- Customers Card -->
+                    <div class="col-xxl-3 col-xl-12">
+                        <div class="card info-card customers-card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Over Due <span>| Amount</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ totalAmountOverDue | number }}</h6>
+                                        <span class="text-danger small pt-1 fw-bold">Over Due</span><span class="text-muted small pt-2 ps-1">as of {{ monthNow }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Customers Card -->
+                    <div class="col-xxl-3 col-xl-12">
+                        <div class="card info-card customers-card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Due <span>| Amount</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>₱{{ totalAmountDue | number }}</h6>
+                                        <span class="text-warning small pt-1 fw-bold">Due</span><span class="text-muted small pt-2 ps-1">as of {{ monthNow }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card ">
+                            <div class="card-body pt-3">
+                                <!-- Bordered Tabs -->
+                                <ul class="nav nav-tabs nav-tabs-bordered">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#status-info">Status Info</button>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#recent-update">Recent Updates</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content pt-2">
+                                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                        <h5 class="card-title">Loan Details</h5>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.users.firstname }} {{ loanInfo.users.lastname }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.users.email }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Contact #</div>
+                                                        <div class="col-lg-9 col-md-8">+639123456789 / To be follow</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                                        <div class="col-lg-9 col-md-8">To be follow</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Request Status</div>
+                                                        <div class="col-lg-9 col-md-8">
+                                                            <span *ngIf="loanInfo.is_active && !loanInfo.is_approved && !loanInfo.is_release" class="badge bg-warning" title="Payable">For Approval</span>
+                                                            <span *ngIf="loanInfo.is_active && loanInfo.is_approved && !loanInfo.is_release" class="badge bg-info" title="Payment Request">For Releasing</span>
+                                                            <span *ngIf="loanInfo.is_active && loanInfo.is_approved && loanInfo.is_release" class="badge bg-primary">Active - Released</span>
+                                                            <span *ngIf="!loanInfo.is_active && !loanInfo.is_approved && !loanInfo.is_release" class="badge bg-danger">Rejected</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label ">Amount</div>
+                                                        <div class="col-lg-9 col-md-8">₱{{ loanInfo.amount | number }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Request Date</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.date_loan | date : 'MMM-dd-yyyy HH:mm:ss a' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Terms</div>
+                                                        <div class="col-lg-9 col-md-8">{{ count_term(loanInfo.loan_logs) }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Pay Off</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.date_paid_off | date:'MMM-yyyy' }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade pt-3" id="status-info">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <h5 class="card-title">Approved By</h5>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="loanInfo.is_approved">{{ loanInfo.approved_by.firstname }} {{ loanInfo.approved_by.lastname }}</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="!loanInfo.is_approved">N/A</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Date</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="loanInfo.is_approved">{{ loanInfo.aprroved_date | date : 'MMM-dd-yyyy HH:mm:ss a' }}</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="!loanInfo.is_approved">N/A</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h5 class="card-title">Release By</h5>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Full Name</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="loanInfo.is_release">{{ loanInfo.release_by.firstname }} {{ loanInfo.release_by.lastname }}</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="!loanInfo.is_release">N/A</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Date</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="loanInfo.is_release">{{ loanInfo.release_date | date : 'MMM-dd-yyyy HH:mm:ss a' }}</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="!loanInfo.is_release">N/A</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h5 class="card-title">Verified By</h5>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="loanInfo.is_paid">{{ loanInfo.verified_by.firstname }} {{ loanInfo.verified_by.lastname }}</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="!loanInfo.is_paid">N/A</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Date</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="loanInfo.is_paid">{{ loanInfo.verified_date | date : 'MMM-dd-yyyy HH:mm:ss a' }}</div>
+                                                        <div class="col-lg-9 col-md-8" *ngIf="!loanInfo.is_paid">N/A</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade pt-3" id="recent-update">
+                                        <h5 class="card-title">Loan Logs</h5>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.users.firstname }} {{ loanInfo.users.lastname }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.users.email }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Contact #</div>
+                                                        <div class="col-lg-9 col-md-8">+639123456789 / To be follow</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                                        <div class="col-lg-9 col-md-8">To be follow</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label ">Amount</div>
+                                                        <div class="col-lg-9 col-md-8">₱{{ loanInfo.amount | number }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Request Date</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.date_loan | date : 'MMM-dd-yyyy HH:mm:ss a' }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Terms</div>
+                                                        <div class="col-lg-9 col-md-8">{{ count_term(loanInfo.loan_logs) }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 label">Pay Off</div>
+                                                        <div class="col-lg-9 col-md-8">{{ loanInfo.date_paid_off | date:'MMM-yyyy' }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Bordered Tabs -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Loan Breakdown -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Account Loan Breakdown<span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Due Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of loanContributionBreakDown">
+                                            <th scope="row">
+                                              <button class="btn btn-sm btn-link" (click)="viewTermDetails(item)">
+                                                  {{ item.term_no }}</button>
+                                            </th>
+                                            <td>₱{{ item.amount }}</td>
+                                            <td>{{ item.due_date|date:'MMM/dd/yy'}}</td>
+                                            <td>
+                                                <span *ngIf="!item.is_paid && !item.is_payment_recieved && !item.is_approved  && !item.is_approved && !item.is_rejected" class="badge bg-warning" title="Payable">Payable</span>
+                                                <span *ngIf="item.is_paid && !item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-info" title="Payment Request">Invoice</span>
+                                                <span *ngIf="item.is_paid && item.is_payment_recieved && !item.is_approved && !item.is_rejected" class="badge bg-primary">Received</span>
+                                                <span *ngIf="item.is_paid && item.is_payment_recieved && item.is_approved && !item.is_rejected" class="badge bg-success">Paid</span>
+                                                <span *ngIf="item.is_paid && item.is_rejected" class="badge bg-danger">Rejected</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Recent Sales -->
+                </div>
+            </div>
+            <!-- End Left side columns -->
+        </div>
+        <!-- Modal -->
+    </section>
+</main>

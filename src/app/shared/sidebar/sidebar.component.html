@@ -1,0 +1,230 @@
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <!-- admin -->
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link " href="/">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- users -->
+        <li *ngIf="!userRole" class="nav-item">
+            <a class="nav-link " href="/">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <!-- <li *ngIf="!userRole" class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Account Details</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="user-savings">
+                        <i class="bi bi-circle"></i><span>Savings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="user-loans">
+                        <i class="bi bi-circle"></i><span>Loans</span>
+                    </a>
+                </li>
+            </ul>
+        </li> -->
+
+        <!-- End Dashboard Nav -->
+        <li *ngIf="userRole" class="nav-item" hidden>
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Income</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="income-salary">
+                        <i class="bi bi-circle"></i><span>Salary</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="other-income">
+                        <i class="bi bi-circle"></i><span>Other Source</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Components Nav -->
+
+        <li *ngIf="userRole" class="nav-item" hidden>
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Expenses</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="expenses-billing">
+                        <i class="bi bi-circle"></i><span>Billings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="expenses-transportation">
+                        <i class="bi bi-circle"></i><span>Transportation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="others-expenses">
+                        <i class="bi bi-circle"></i><span>Others</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="expenses-reports">
+                        <i class="bi bi-circle"></i><span>Reports</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Forms Nav -->
+
+        <li *ngIf="userRole" class="nav-item" hidden>
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Investment and Savings</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="invest-property">
+                        <i class="bi bi-circle"></i><span>Property</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="invest-insurance">
+                        <i class="bi bi-circle"></i><span>Insurance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="emergency-fund">
+                        <i class="bi bi-circle"></i><span>Emergency Fund</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="other-savings">
+                        <i class="bi bi-circle"></i><span>Other Savings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="invest-savings-report">
+                        <i class="bi bi-circle"></i><span>Reports</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Tables Nav -->
+
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span>Banking</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="fund-monitoring">
+                        <i class="bi bi-circle"></i><span>Funds</span>
+                    </a>
+                </li>
+                <!-- <li >
+                    <a href="billing monitoring">
+                        <i class="bi bi-circle"></i><span>Billings</span>
+                    </a>
+                </li> -->
+                <li>
+                    <a href="loan-monitoring">
+                        <i class="bi bi-circle"></i><span>Loans</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="report-monitoring">
+                        <i class="bi bi-circle"></i><span>Reports</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- End Icons Nav -->
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" href="/reports">
+                <i class="bi bi-bar-chart"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
+        <li class="nav-heading">Pages</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/profile">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <!-- End Profile Page Nav -->
+        <!--
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="contacts">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li> -->
+
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" href="profile-settings">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+        <!-- End Contact Page Nav -->
+        <li *ngIf="userRole" class="nav-heading">Administrator</li>
+
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#list-user" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>List Of Users</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="list-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <!-- <li>
+                    <a href="users">
+                        <i class="bi bi-circle"></i><span>Active Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="block-users">
+                        <i class="bi bi-circle"></i><span>Block Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="deleted-users">
+                        <i class="bi bi-circle"></i><span>Deleted Users</span>
+                    </a>
+                </li> -->
+                <li>
+                    <a href="all-users">
+                        <i class="bi bi-circle"></i><span>All Users</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <!-- End Register Page Nav -->
+
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" href="access-policy">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Access Policy</span>
+            </a>
+        </li>
+        <!-- End Login Page Nav -->
+
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" href="system-settings">
+                <i class="bi bi-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </li>
+        <!-- End Error 404 Page Nav -->
+    </ul>
+
+</aside>
+<!-- End Sidebar-->
