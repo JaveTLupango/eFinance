@@ -1,13 +1,13 @@
-import { count } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountLoansRequest } from 'src/app/shared/model/AcountLoansRequest/account-loans-request.model';
 import { LoanContributionBreakDown } from 'src/app/shared/model/bank/contributionBreakDown/contribution-break-down';
 import { AdminAction, ProofOfPayment } from 'src/app/shared/model/proofOfPayment/proof-of-payment.model';
-import { LoanRequestService } from 'src/app/shared/Services/bank/loan/loan-request.service';
 import { LoanPaymentService } from 'src/app/shared/Services/bank/loan/loan-payment.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-user-loan-term-details',
@@ -155,9 +155,24 @@ export class UserLoanTermDetailsComponent {
       {
         if(data.StatusCode == 200)
         {
-            alert('success');            
-            console.log(data);            
-          this.listOfAttachment = data.data
+          Swal.fire({
+            title: "Success!",
+            text: "Successfully Attach Payment Reciept!",
+            icon: "success",
+            confirmButtonText: "Ok"
+          }).then((result) => {
+            if (result.isConfirmed) {
+            this.listOfAttachment = data.data;
+            this.listOfSystemLogs = data.systemlogs;
+            }
+          });
+          // Swal.fire({
+          //   position: 'top-end',
+          //   icon: 'success',
+          //   title: 'Successfully Attach Payment Reciept!',
+          //   showConfirmButton: false,
+          //   timer: 2000
+          // }); 
         }
         else
         {
@@ -217,43 +232,115 @@ export class UserLoanTermDetailsComponent {
   }
   rejectByAdmin()
   {
-    this.service.rejectAdmin(this.proofOfPayment).subscribe(data=>
-      {
-        if(data.StatusCode == 200)
-        {
-            alert('success');            
-            console.log(data);            
-          this.listOfAttachment = data.data
-        }
-        else
-        {
-          alert('error');
-          console.log(data);
-        }
-      });
+    this.proofOfPayment.adminAction.is_action = false;
+
+    Swal.fire({
+      title: "Are you sure you want to reject?",
+      text: "This amount wont added to the resource!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.rejectAdmin(this.proofOfPayment).subscribe(data=>
+          {
+            if(data.StatusCode == 200)
+              {              
+                Swal.fire({
+                  title: "Success!",
+                  text: "Successfully Rejected Payment Reciept!",
+                  icon: "success",
+                  confirmButtonText: "Ok"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.listOfAttachment = data.data;
+                  this.listOfSystemLogs = data.systemlogs;
+                  }
+                });  
+              }
+              else
+              {
+                console.log(data);
+                Swal.fire({
+                  title: "Error Occurs!",
+                  text: "Unsuccessfully Reject Payment Reciept!",
+                  icon: "error",
+                  confirmButtonText: "Ok"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.listOfAttachment = data.data;
+                  this.listOfSystemLogs = data.systemlogs;
+                  }
+                });  
+                // alert('error');
+                // console.log(data);
+              }
+          });
+      }
+    });
+
+   
   }
 
   approvedByAdmin()
   {
-    this.service.approvedAdmin(this.proofOfPayment).subscribe(data=>
-      {
-        if(data.StatusCode == 200)
-        {
-            alert('success');            
-            console.log(data);            
-          this.listOfAttachment = data.data
-        }
-        else
-        {
-          alert('error');
-          console.log(data);
-        }
-      });
+    this.proofOfPayment.adminAction.is_action = false;
+    Swal.fire({
+      title: "Are you sure you want to approve?",
+      text: "This amount automatically added to the resource!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, approve it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        this.service.approvedAdmin(this.proofOfPayment).subscribe(data=>
+          {
+            if(data.StatusCode == 200)
+            {              
+              Swal.fire({
+                title: "Success!",
+                text: "Successfully Approved Payment Reciept!",
+                icon: "success",
+                confirmButtonText: "Ok"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                this.listOfAttachment = data.data;
+                this.listOfSystemLogs = data.systemlogs;
+                }
+              });  
+            }
+            else
+            {
+              Swal.fire({
+                title: "Error Occurs!",
+                text: "Unsuccessfully Approved Payment Reciept!",
+                icon: "error",
+                confirmButtonText: "Ok"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                this.listOfAttachment = data.data;
+                this.listOfSystemLogs = data.systemlogs;
+                }
+              });  
+              // alert('error');
+               console.log(data);
+            }
+          });
+
+      }
+    });
+
+    
   }
 
   closeAdminAction()
   {
-
+      this.proofOfPayment.adminAction.is_action = false;
   }
 
   
