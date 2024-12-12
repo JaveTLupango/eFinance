@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
 })
 export class FundDashboardComponent {
 
+  isCreateWallet: boolean = false;
+
+
+  showCreateWallet()
+  {
+      this.isCreateWallet = true;
+  }
+
+  hideCreateWallet()
+  {
+    this.isCreateWallet = false;
+  }
+
+  SaveAdminAction()
+  {
+
+  }
+
 }
