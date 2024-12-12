@@ -23,6 +23,7 @@ import { BlockUsersComponent } from './users/block-users/block-users.component';
 import { DeletedUsersComponent } from './users/deleted-users/deleted-users.component';
 import { AdminLoanMonitoringComponent } from './Banking/admin-loan-monitoring/admin-loan-monitoring.component';
 import { UserLoanTermDetailsComponent } from './Banking/user-loan-term-details/user-loan-term-details.component';
+import { FundDashboardComponent } from './Banking/Fund/fund-dashboard/fund-dashboard.component';
 
 const routes: Routes = [
   // homepage route
@@ -48,6 +49,8 @@ const routes: Routes = [
  { path: 'block-users' , component:BlockUsersComponent},
  { path: 'deleted-users' , component:DeletedUsersComponent},
  { path: 'loan-monitoring' , component:AdminLoanMonitoringComponent},
+ { path: 'fund-dashboard' , component:FundDashboardComponent},
+
 
 
 

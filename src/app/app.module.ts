@@ -38,6 +38,7 @@ import { DeletedUsersComponent } from './users/deleted-users/deleted-users.compo
 import { BlockUsersComponent } from './users/block-users/block-users.component';
 import { AdminLoanMonitoringComponent } from './Banking/admin-loan-monitoring/admin-loan-monitoring.component';
 import { UserLoanTermDetailsComponent } from './Banking/user-loan-term-details/user-loan-term-details.component';
+import { FundDashboardComponent } from './Banking/Fund/fund-dashboard/fund-dashboard.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { UserLoanTermDetailsComponent } from './Banking/user-loan-term-details/u
     DeletedUsersComponent,
     BlockUsersComponent,
     AdminLoanMonitoringComponent,
-    UserLoanTermDetailsComponent
+    UserLoanTermDetailsComponent,
+    FundDashboardComponent,
   ],
   imports: [
     BrowserModule,
