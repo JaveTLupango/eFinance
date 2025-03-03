@@ -14,7 +14,7 @@
         <div class="row">
             <!-- Left side columns -->
             <div class="col-lg-12">
-                <div class="row">         
+                <div class="row">
                     <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
@@ -96,47 +96,45 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12" *ngIf="isCreateWallet">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title">Wallet Account <span>| Create</span></h5>                                
+                                <h5 class="card-title">Wallet Account <span>| Create</span></h5>
                                 <div class="col-sm-12">
                                     <div class="form-floating mb-3">
-                                      <input type="text" class="form-control" id="floatingInput" placeholder="Account No." >
+                                      <input type="text" class="form-control" id="floatingInput" placeholder="Account No." [(ngModel)]="model.account_no">
                                       <label for="floatingInput">Account No.</label>
                                     </div>
+                                    
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="Account Name" >
-                                        <label for="floatingInput">Account Name.</label>
+                                      <select id="no_month_term" id="floatingInput" class="form-select" name="Wallet Owner" [(ngModel)]="model.wallet_owner" (ngModelChange)="ChangeValue()">
+                                          <option  selected>Select</option>
+                                          <option *ngFor="let item of admin_users"  value="{{ item.id }}">{{ item.id }} - {{ item.firstname }} {{ item.middlename }} {{ item.lastname }} </option>
+                                        </select>
+                                      <label for="floatingInput">Wallet Owner</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Wallet Account Name" [(ngModel)]="model.wallet_owner_name" disabled>
+                                        <label for="floatingInput">Wallet Account Name</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <select id="no_month_term" id="floatingInput" class="form-select" name="no_month_term">
+                                        <select id="floatingInput" class="form-select" name="Bank Type" [(ngModel)]="model.bank_type" (change)="onchangeBankType()">
                                             <option  selected>Select</option>
-                                            <option  value="Bank">Traditional Bank</option>
-                                            <option  value="Digital Bank">Monthly</option>
+                                            <option *ngFor="let item of bankType" value="{{ item.type }}">{{ item.type }}</option>
                                           </select>
                                         <label for="floatingInput">Type</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <select id="no_month_term" id="floatingInput" class="form-select" name="no_month_term">
+                                        <select id="floatingInput" class="form-select" name=" Bank Name" [(ngModel)]="model.bank_name">
                                             <option  selected>Select</option>
-                                            <option  value="Bank">Traditional Bank</option>
-                                            <option  value="Digital Bank">Monthly</option>
+                                            <option *ngFor="let item of filteredlistBankType" value="{{ item.name }}">{{ item.name }}</option>
                                           </select>
                                         <label for="floatingInput">Bank Name</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="Bank Name Prefix" >
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Bank Name Prefix" [(ngModel)]="model.prefix">
                                         <label for="floatingInput">Bank Name Prefix.</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <select id="no_month_term" id="floatingInput" class="form-select" name="Wallet Owner">
-                                            <option  selected>Select</option>
-                                            <option  value="Bank">Traditional Bank</option>
-                                            <option  value="Digital Bank">Monthly</option>
-                                          </select>
-                                        <label for="floatingInput">Wallet Owner</label>
                                     </div>
 
                                       <div class="modal-footer" style="margin-top: 1%;">
@@ -157,24 +155,30 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Account No.</th>
-                                            <th scope="col">Acount Name</th>
-                                            <th scope="col">Acount Balance</th>
+                                            <th scope="col">Bank</th>
+                                            <th scope="col">Balance</th>
+                                            <th scope="col">Prev. Balance</th>
+                                            <th scope="col">Last Update</th>
+                                            <th scope="col">Last Status</th>
                                             <th scope="col">Account Owner</th>
                                             <th scope="col">Option</th>
                                             <!-- <th *ngIf="userRole" scope="col">Options</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr *ngFor="let item of listLoanAccount">
+                                        <tr *ngFor="let item of banklist">
                                             <th scope="row">
-                                                <button class="btn btn-sm btn-link" (click)="viewBreakDown(item)">
-                                                    L-{{ item.id | number:'3.0' }}</button>
+                                                <!-- (click)="viewBreakDown(item)" -->
+                                                <button class="btn btn-sm btn-link">  
+                                                    WA-{{ item.id | number:'3.0' }}</button>
                                             </th>
-                                            <td>₱{{ item.amount }}</td>
-                                            <td>₱{{ item.total_amount_loan_and_interest }}</td>
-                                            <td>{{ item.date_loan|date:'MMM/dd/yyyy'}}</td>
-                                            <td>{{ item.date_paid_off|date:'MMM/dd/yyyy'}}</td>
-                                            <td>
+                                            <td>[{{ item.prefix }}][{{ item.bank_type }}]{{ item.bank_name }} </td>
+                                            <td>₱{{ item.active_balance_amount }}</td>
+                                            <td>₱{{ item.active_prev_balance_amount }}</td>
+                                            <td>{{ item.last_update	|date:'MMM/dd/yyyy'}}</td>  
+                                            <td>{{ item.last_status_update }}</td>                                          
+                                            <td>{{ item.owners.firstname }} {{ item.owners.lastname }}</td>
+                                            <!-- <td>
                                                 <span *ngIf="item.is_active && item.is_approved && item.is_release" class="badge bg-success">Active</span>
                                                 <span *ngIf="item.is_active && item.is_approved && !item.is_release" class="badge bg-success">For Releasing</span>
                                                 <span *ngIf="item.is_active && !item.is_approved && !item.is_release" class="badge bg-warning">For Approval</span>
@@ -185,8 +189,8 @@
                                                 <button *ngIf="!item.is_active && !item.is_approved" type="button" class="btn btn-sm" disabled>Rejected</button>
                                                 <button *ngIf="item.is_active && !item.is_approved" type="button" class="btn btn-sm btn-primary">Approve</button>
                                                 <button *ngIf="item.is_active && !item.is_approved" type="button" class="btn btn-sm btn-danger">Reject</button>
-                                            </td>
-                                        </tr> -->
+                                            </td> -->
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
