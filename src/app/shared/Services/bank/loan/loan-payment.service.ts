@@ -33,7 +33,7 @@ export class LoanPaymentService {
   }
 
   rejectAdmin(model : any)
-  { debugger;
+  {
     model.system_link_key = "LOAN";
     model.task_notes = 'Rejected | Loan '+ model.termNumber +' | Notes: ' + model.notes;
     model.task_action_logs = 'Approval';
@@ -45,7 +45,7 @@ export class LoanPaymentService {
   }
 
   approvedAdmin(model : any)
-  { debugger;
+  { 
     model.system_link_key = "LOAN";
     model.task_notes = 'Approved | Loan '+ model.termNumber +' | Notes: ' + model.notes;
     model.task_action_logs = 'Approval';

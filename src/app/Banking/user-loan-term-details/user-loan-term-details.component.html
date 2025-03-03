@@ -184,7 +184,8 @@
                                           <td>{{ item.notes }}</td>
                                           <td>{{ item.created_at|date:'MMM/dd/yy HH:mm:ss'}}</td>
                                           <td>
-                                            <button class="btn btn-primary" (click)="viewAttachment(item)" >View Attachment</button>
+                                            <button *ngIf="item.attachments != null" class="btn btn-primary" (click)="viewAttachment(item)" >View Attachment</button>
+                                            <button *ngIf="item.attachments == null" class="btn btn-warning" disabled >No Attachment</button>
                                           </td>
                                       </tr>
                                   </tbody>
@@ -207,7 +208,10 @@
                             </div> -->
 
                             <div *ngIf="proofOfPayment.adminAction.is_action"  class="col-sm-12">
-
+                              <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Amount" [(ngModel)]="proofOfPayment.amount">
+                                <label for="floatingInput">Amount</label>
+                              </div>
                                 <div class="form-floating mb-3">
                                   <textarea class="form-control" placeholder="Provide a notes" id="floatingTextarea" style="height: 100px;" [(ngModel)]="proofOfPayment.notes" maxlength="50"></textarea>
                                   <label for="floatingTextarea">Provide a notes</label>

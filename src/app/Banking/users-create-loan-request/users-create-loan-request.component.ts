@@ -142,7 +142,6 @@ export class UsersCreateLoanRequestComponent {
 
   NgSubmitSavingRequest(model: AccountLoansRequest)
   {
-    debugger;
     model.user_id = Number(localStorage.getItem('UserId'));
     model.loanContributionBreakDown = this.listContributionBreakdown;
     console.log(model);
@@ -155,11 +154,23 @@ export class UsersCreateLoanRequestComponent {
           console.log(data);
           if(data.status_code == 200)
           {
-             Swal.fire(
-              'Success!',
-              'Loan request successfully sent!.',
-              'success'
-            );
+
+            Swal.fire({
+              title: "Success!",
+              text: "Loan request successfully sent!.",
+              icon: "success",
+              confirmButtonText: "Ok"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.router.navigate(['']);
+              }
+            });
+            //  Swal.fire(
+            //   'Success!',
+            //   'Loan request successfully sent!.',
+            //   'success'
+            // );
+
           }
           else{
             Swal.fire(
