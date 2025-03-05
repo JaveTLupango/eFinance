@@ -39,6 +39,8 @@ import { BlockUsersComponent } from './users/block-users/block-users.component';
 import { AdminLoanMonitoringComponent } from './Banking/admin-loan-monitoring/admin-loan-monitoring.component';
 import { UserLoanTermDetailsComponent } from './Banking/user-loan-term-details/user-loan-term-details.component';
 import { FundDashboardComponent } from './Banking/Fund/fund-dashboard/fund-dashboard.component';
+import { RulesOfHundredComponent } from './systemAdmin/rules-of-hundred/rules-of-hundred.component';
+import { BasePageComponent } from './shared/base-page/base-page.component';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import { FundDashboardComponent } from './Banking/Fund/fund-dashboard/fund-dashb
     AdminLoanMonitoringComponent,
     UserLoanTermDetailsComponent,
     FundDashboardComponent,
+    RulesOfHundredComponent,
+    BasePageComponent,
   ],
   imports: [
     BrowserModule,

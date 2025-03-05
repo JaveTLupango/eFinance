@@ -1,0 +1,84 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+      <h1>Rules Of Hundred</h1>
+      <nav>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">Admin</li>
+              <li class="breadcrumb-item active">Rules Of Hundred</li>
+          </ol>
+      </nav>
+  </div>
+
+  <section class="section dashboard">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-12" *ngIf="!isCreateRules">
+              <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <button (click)="isCreateRulesAction()" class="col-3 btn btn-primary">Create Rules</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12" *ngIf="isCreateRules">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Rules Of Hundred<span>| Create</span></h5>
+                    <div class="col-sm-12">
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" id="floatingInput"  name="rule" placeholder="Rule" [(ngModel)]="_rule" >
+                          <label for="floatingInput">Rules</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="number" class="form-control" id="floatingInput" name="penalty" placeholder="Penalty" [(ngModel)]="_penalty" >
+                          <label for="floatingInput">Penalty</label>
+                        </div>
+                          <div class="modal-footer" style="margin-top: 1%;">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="isCreateRulesAction()">Close</button>
+                            <button type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveAdminAction()">Save changes</button>
+                          </div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                  <div class="card-body">
+                      <h5 class="card-title">Rules Of Hundred<span>| List</span></h5>
+                      <table class="table table-borderless datatable">
+                          <thead>
+                              <tr>
+                                  <th scope="col">ID.</th>
+                                  <th scope="col">Rule</th>
+                                  <th scope="col">Penalty</th>
+                                  <th scope="col">Option</th>
+                                  <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of listOfRuleUI">
+                              <th scope="row">
+                                  <!-- (click)="viewBreakDown(item)" -->
+                                  <button class="btn btn-sm btn-link">
+                                    R{{ item.id | number:'3.0' }}</button>
+                              </th>
+                              <td>{{ item.rule }}</td>
+                              <td>₱{{ item.penalty }}</td>
+                              <td>
+                                <button (click)="pickRuleAction(item.id)" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+                                <button (click)="pickRuleDeleteAction(item)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                              </td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  </main>

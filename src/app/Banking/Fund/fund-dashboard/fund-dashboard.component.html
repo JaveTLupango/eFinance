@@ -155,7 +155,8 @@
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Account No.</th>
+                                          <th scope="col">Account ID</th>
+                                          <th scope="col">Account No</th>
                                             <th scope="col">Bank</th>
                                             <th scope="col">Balance</th>
                                             <th scope="col">Prev. Balance</th>
@@ -173,6 +174,7 @@
                                                 <button class="btn btn-sm btn-link">
                                                     WA-{{ item.id | number:'3.0' }}</button>
                                             </th>
+                                            <td>{{ item.account_no }}</td>
                                             <td>[{{ item.prefix }}][{{ item.bank_type }}]{{ item.bank_name }} </td>
                                             <td>₱{{ item.active_balance_amount }}</td>
                                             <td>₱{{ item.active_prev_balance_amount }}</td>
