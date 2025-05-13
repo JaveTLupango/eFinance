@@ -26,6 +26,7 @@ import { UserLoanTermDetailsComponent } from './Banking/user-loan-term-details/u
 import { FundDashboardComponent } from './Banking/Fund/fund-dashboard/fund-dashboard.component';
 import { RulesOfHundredComponent } from './systemAdmin/rules-of-hundred/rules-of-hundred.component';
 import { BasePageComponent } from './shared/base-page/base-page.component';
+import { PenaltyComponent } from './systemAdmin/penalty/penalty/penalty.component';
 
 const routes: Routes = [
   // homepage route
@@ -54,6 +55,7 @@ const routes: Routes = [
  { path: 'fund-dashboard' , component:FundDashboardComponent},
  { path: 'rules-hundred' , component:RulesOfHundredComponent},
  { path: 'base-page' , component:BasePageComponent},
+ { path: 'penalty' , component:PenaltyComponent},
 
 
 

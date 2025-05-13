@@ -26,6 +26,8 @@ export class FundDashboardComponent {
   user_id = Number(localStorage.getItem('UserId'));
   filteredlistBankType : any = [];
   model : bank_wallet_funds = new bank_wallet_funds();
+  totalAvailableAmount : number = 0;
+  totalOnholdAmount : number = 0;
 
   sBankList: any;
   ngOnInit() {
@@ -37,17 +39,17 @@ export class FundDashboardComponent {
       this.service.get().subscribe({
         next: (data) =>
           {
-            console.log(data);
+            // console.log(data);
             if(data.StatusCode == 200)
             {
               this.banklist = data.banklist;
-              console.log(this.banklist);
+              // console.log(this.banklist);
               this.listBankType = data.listbanktype;
               this.bankType = data.banktype;
               this.admin_users = data.admin_users;
-              console.log(this.bankType);
-              this.filteredlistBankType = this.listBankType;              
-              
+              // console.log(this.bankType);
+              this.filteredlistBankType = this.listBankType;             
+              this.availableAmount();
             }
             else{
               console.log(data)
@@ -60,6 +62,7 @@ export class FundDashboardComponent {
               console.log('complete')
           }
       });
+
   }
 
 
@@ -156,6 +159,20 @@ export class FundDashboardComponent {
 
     this.model.wallet_owner_name = ownerName;
 
+  }
+
+  availableAmount()
+  { debugger;
+    var AvailableAmount = 0;
+    var OnholdAmount = 0;
+   this.banklist.forEach(function(e:any)
+   {
+      AvailableAmount += Number(e.active_balance_amount);
+      OnholdAmount += Number(e.active_balance_amount);
+   });
+
+   this.totalAvailableAmount = AvailableAmount;
+   this.totalOnholdAmount  = OnholdAmount;
   }
 
 

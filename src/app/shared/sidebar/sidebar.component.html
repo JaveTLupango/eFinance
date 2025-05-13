@@ -124,7 +124,7 @@
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="fund-dashboard">
-                        <i class="bi bi-circle"></i><span>Funds</span>
+                        <i class="bi bi-circle"></i><span>Fund Dashboard</span>
                     </a>
                 </li>
                 <!-- <li >
@@ -158,6 +158,12 @@
             <a class="nav-link collapsed" href="/profile">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
+            </a>
+        </li>
+        <li *ngIf="userRole" class="nav-item">
+            <a class="nav-link collapsed" href="penalty">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Penalty</span>
             </a>
         </li>
         <!-- End Profile Page Nav -->

@@ -36,9 +36,21 @@ export class RegisterComponent {
     if(this.registerModel.acceptTerms)
     {
       this.RegisterSS.register(this.registerModel, this.baseurl).subscribe(
-        data =>
         {
-          console.log(data);
+          next : (data) =>
+            {
+              console.log(data);
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Successfully registered!. Please verify your email!',
+                showConfirmButton: true,               
+              })
+            },
+            error(e:any)
+            {
+              console.log(e);
+            }
         }
       );
     }
