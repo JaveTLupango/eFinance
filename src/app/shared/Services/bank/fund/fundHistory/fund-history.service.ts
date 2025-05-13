@@ -1,0 +1,20 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BaseURL } from 'src/app/shared/model/base/base-url.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FundHistoryService {
+ constructor(private http: HttpClient) { }
+  baseurl : BaseURL = new BaseURL();
+  
+    get()
+    {
+      const headers = new HttpHeaders()
+              .set("Authorization", "Bearer "+localStorage.getItem('AuthToken'));
+      const apiURL = this.baseurl.url_api+"/fund/transaction/history";
+          return this.http.get<any>(apiURL,{headers});
+    }
+
+}

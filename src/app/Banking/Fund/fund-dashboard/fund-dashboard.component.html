@@ -24,7 +24,7 @@
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>0</h6>
+                                        <h6>{{ banklist.length }}</h6>
                                         <span class="text-success small pt-1 fw-bold">₱0</span> <span class="text-muted small pt-2 ps-1">Total Amount</span>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <!-- <h6>₱{{ loanDetails.total_loan_amount | number }}</h6> -->
-                                        <h6>₱0</h6>
+                                        <h6>₱ {{ totalAvailableAmount }}</h6>
                                         <span class="text-success small pt-1 fw-bold">₱0</span> <span class="text-muted small pt-2 ps-1">Paid as of Nov.</span>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <!-- <h6>₱{{ totalAmountDue | number }}</h6> -->
-                                        <h6>₱0</h6>
+                                        <h6>₱ {{ totalOnholdAmount }}</h6>
                                         <span class="text-danger small pt-1 fw-bold">Due</span><span class="text-muted small pt-2 ps-1">as of Dec</span>
                                     </div>
                                 </div>
@@ -90,8 +90,9 @@
                     <div class="col-12" *ngIf="!isCreateWallet">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-12">
-                                    <button (click)="showCreateWallet()" class="btn btn-primary">Create Wallet Account</button>
+                              <div class="col-9">
+                                <button (click)="showCreateWallet()" class="col-3 btn btn-primary">Create Wallet Account</button>
+                                <!-- <button (click)="showCreateWallet()" class="col-3 btn btn-primary">Deposit Amount</button> -->
                                 </div>
                             </div>
                         </div>
@@ -105,7 +106,7 @@
                                       <input type="text" class="form-control" id="floatingInput" placeholder="Account No." [(ngModel)]="model.account_no">
                                       <label for="floatingInput">Account No.</label>
                                     </div>
-                                    
+
                                     <div class="form-floating mb-3">
                                       <select id="no_month_term" id="floatingInput" class="form-select" name="Wallet Owner" [(ngModel)]="model.wallet_owner" (ngModelChange)="ChangeValue()">
                                           <option  selected>Select</option>
@@ -154,7 +155,8 @@
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Account No.</th>
+                                          <th scope="col">Account ID</th>
+                                          <th scope="col">Account No</th>
                                             <th scope="col">Bank</th>
                                             <th scope="col">Balance</th>
                                             <th scope="col">Prev. Balance</th>
@@ -169,14 +171,15 @@
                                         <tr *ngFor="let item of banklist">
                                             <th scope="row">
                                                 <!-- (click)="viewBreakDown(item)" -->
-                                                <button class="btn btn-sm btn-link">  
+                                                <button class="btn btn-sm btn-link">
                                                     WA-{{ item.id | number:'3.0' }}</button>
                                             </th>
+                                            <td>{{ item.account_no }}</td>
                                             <td>[{{ item.prefix }}][{{ item.bank_type }}]{{ item.bank_name }} </td>
                                             <td>₱{{ item.active_balance_amount }}</td>
                                             <td>₱{{ item.active_prev_balance_amount }}</td>
-                                            <td>{{ item.last_update	|date:'MMM/dd/yyyy'}}</td>  
-                                            <td>{{ item.last_status_update }}</td>                                          
+                                            <td>{{ item.last_update	|date:'MMM/dd/yyyy'}}</td>
+                                            <td>{{ item.last_status_update }}</td>
                                             <td>{{ item.owners.firstname }} {{ item.owners.lastname }}</td>
                                             <!-- <td>
                                                 <span *ngIf="item.is_active && item.is_approved && item.is_release" class="badge bg-success">Active</span>
@@ -197,6 +200,171 @@
                         </div>
                     </div>
                     <!-- End Recent Sales -->
+
+                    <!-- deposit amount -->
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Deposit Amount <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Amount</th>
+                                            <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr >
+                                            <td>Jave</td>
+                                            <td>₱ 1100</td>
+                                        </tr>
+                                        <tr >
+                                            <td>Richelle</td>
+                                            <td>₱ 1000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- deposit amount -->
+
+                    <!-- Credit Amount -->
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Credit Amount <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Amount</th>
+                                            <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr >
+                                            <td>Jave</td>
+                                            <td>₱ 1100</td>
+                                        </tr>
+                                        <tr >
+                                            <td>Richelle</td>
+                                            <td>₱ 1000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Credit Amount -->
+
+                    <!-- Loan Amount -->                     
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Loan Amount <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Amount</th>
+                                            <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of admin_users">
+                                            <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                            <td *ngIf="item.loan_amount_sum_amount != null">{{ item.loan_amount_sum_amount | currency:'PHP' }}</td>
+                                            <td *ngIf="item.loan_amount_sum_amount == null">₱0.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Loan Amount -->
+                    
+                    <!-- SG Amount -->                     
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Self Gift Amount <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Amount</th>
+                                            <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr >
+                                            <td>Jave</td>
+                                            <td>₱ 1100</td>
+                                        </tr>
+                                        <tr >
+                                            <td>Richelle</td>
+                                            <td>₱ 1000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SG Amount -->
+
+                    
+                    <!-- OverAll Penalty Amount -->                     
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">OverAll Penalties <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Amount</th>
+                                            <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of admin_users">
+                                            <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                            <td>{{ item.penalties_sum_amount | currency:'PHP' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- OverAll Penalty Amount -->
+                     
+                    <!-- Balance Payable Amount -->                     
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Balance Payable <span>| List</span></h5>
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Amount</th>
+                                            <!-- <th *ngIf="userRole" scope="col">Options</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of admin_users">
+                                            <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                            <td>{{ item.penalties_sum_amount | currency:'PHP' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Balance Payable Amount -->
+
                 </div>
             </div>
             <!-- End Left side columns -->
