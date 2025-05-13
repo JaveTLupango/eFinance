@@ -39,7 +39,7 @@ export class FundDashboardComponent {
       this.service.get().subscribe({
         next: (data) =>
           {
-            // console.log(data);
+             console.log(data);
             if(data.StatusCode == 200)
             {
               this.banklist = data.banklist;

@@ -273,13 +273,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr >
-                                            <td>Jave</td>
-                                            <td>₱ 1100</td>
-                                        </tr>
-                                        <tr >
-                                            <td>Richelle</td>
-                                            <td>₱ 1000</td>
+                                        <tr *ngFor="let item of admin_users">
+                                            <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                            <td *ngIf="item.loan_amount_sum_amount != null">{{ item.loan_amount_sum_amount | currency:'PHP' }}</td>
+                                            <td *ngIf="item.loan_amount_sum_amount == null">₱0.00</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -322,7 +319,7 @@
                     <div class="col-xxl-4 col-md-3">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title">OverAll Penalty Amount <span>| List</span></h5>
+                                <h5 class="card-title">OverAll Penalties <span>| List</span></h5>
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
@@ -332,13 +329,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr >
-                                            <td>Jave</td>
-                                            <td>₱ 1100</td>
-                                        </tr>
-                                        <tr >
-                                            <td>Richelle</td>
-                                            <td>₱ 1000</td>
+                                        <tr *ngFor="let item of admin_users">
+                                            <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                            <td>{{ item.penalties_sum_amount | currency:'PHP' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -351,7 +344,7 @@
                     <div class="col-xxl-4 col-md-3">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title">Balance Payable Amount <span>| List</span></h5>
+                                <h5 class="card-title">Balance Payable <span>| List</span></h5>
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
@@ -361,13 +354,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr >
-                                            <td>Jave</td>
-                                            <td>₱ 1100</td>
-                                        </tr>
-                                        <tr >
-                                            <td>Richelle</td>
-                                            <td>₱ 1000</td>
+                                        <tr *ngFor="let item of admin_users">
+                                            <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                            <td>{{ item.penalties_sum_amount | currency:'PHP' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
