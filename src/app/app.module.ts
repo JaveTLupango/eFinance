@@ -42,6 +42,7 @@ import { FundDashboardComponent } from './Banking/Fund/fund-dashboard/fund-dashb
 import { RulesOfHundredComponent } from './systemAdmin/rules-of-hundred/rules-of-hundred.component';
 import { BasePageComponent } from './shared/base-page/base-page.component';
 import { PenaltyComponent } from './systemAdmin/penalty/penalty/penalty.component';
+import { FundTransactionComponent } from './Banking/Fund/fund-transaction/fund-transaction.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { PenaltyComponent } from './systemAdmin/penalty/penalty/penalty.componen
     RulesOfHundredComponent,
     BasePageComponent,
     PenaltyComponent,
+    FundTransactionComponent,
   ],
   imports: [
     BrowserModule,
