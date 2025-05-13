@@ -25,7 +25,7 @@ export class PenaltyComponent {
     userID : number = 0;
     whoIsList : any;
     whoIsModel : WhoIsPenalty = new WhoIsPenalty();
-    whoIsModelList : WhoIsPenalty[] = [];
+    // whoIsModelList : WhoIsPenalty[] = [];
 
     ngOnInit() 
     {
@@ -57,7 +57,7 @@ export class PenaltyComponent {
 
     whoIsPenaltyComputation()
     {
-      
+      // this.whoIsModelList = [];;
         this.whoIsList.forEach((e:any)=> {
           var totalAmount = 0;
           this.whoIsModel = new WhoIsPenalty();
@@ -69,8 +69,8 @@ export class PenaltyComponent {
             this.whoIsModel.totalAmount = totalAmount;
             this.whoIsModel.totalPayableAmount = totalAmount - this.whoIsModel.TotalDepositAmount;
             console.log(this.whoIsModel);
-            this.whoIsModelList.push(this.whoIsModel);            
-            console.log(this.whoIsModelList);
+            // this.whoIsModelList.push(this.whoIsModel);            
+            // console.log(this.whoIsModelList);
         });
     }
 
@@ -120,18 +120,18 @@ export class PenaltyComponent {
             next: (data)=>
             {
               if(data.StatusCode == 200)
-                {
+                { debugger;
+                  this.ruleList = data.rules;
+                  this.penaltyList = data.penaltyList;  
+                  this.whoIsList = data.who_is;  
+                  this.isCreate = false;
+                  
                    Swal.fire({
                                     title: "Success!",
                                     text: "Penalty Created!.",
                                     icon: "success",
                                     confirmButtonText: "Ok"
                                   });
-                                  
-                  this.ruleList = data.rules;
-                  this.penaltyList = data.penaltyList;  
-                  this.whoIsList = data.who_is;  
-                  this.isCreate = false;
                 }
                 else
                 {
