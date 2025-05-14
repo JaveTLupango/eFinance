@@ -12,6 +12,67 @@
 
   <section class="section dashboard">
       <div class="row">
+            <div class="col-12" *ngIf="!isCreate">
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-9">
+                        <button (click)="IsCreate()" class="col-3 btn btn-primary">New Transaction</button>
+                        <!-- <button (click)="showCreateWallet()" class="col-3 btn btn-primary">Deposit Amount</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" *ngIf="!isCreate">
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body">
+                        <h5 class="card-title">New Transaction <span>| Create</span></h5>
+                        <div class="col-sm-12">
+                            <div class="form-floating mb-3">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.userid">
+                                    <option  selected>Select</option>
+                                    <option *ngFor="let item of admin_users"  value="{{ item.id }}">{{ item.id }} - {{ item.firstname }} {{ item.middlename }} {{ item.lastname }} </option>
+                                </select>
+                                <label for="floatingInput">Who Is?</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Account No." [(ngModel)]="model.amount">
+                                <label for="floatingInput">Amount</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.transaction_type">
+                                    <option  selected>Select</option>
+                                    <option *ngFor="let item of transaction_type"  value="{{ item }}">{{ item }}</option>
+                                </select>
+                                <label for="floatingInput">Transaction Type</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.type">
+                                    <option  selected>Select</option>
+                                    <option *ngFor="let item of type"  value="{{ item }}">{{ item }}</option>
+                                </select>
+                                <label for="floatingInput">Type</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.bank_id">
+                                    <option  selected>Select</option>
+                                    <option *ngFor="let item of banklist"  value="{{ item.id }}">[{{ item.prefix }}][{{ item.bank_type }}]{{ item.bank_name }} - [{{ item.account_no }}]</option>
+                                </select>
+                                <label for="floatingInput">Wallet</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea type="text" class="form-control notes" id="floatingInput" placeholder="Account No." [(ngModel)]="model.notes">
+                                </textarea>
+                                <label for="floatingInput">Notes</label>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1%;">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="IsCreate()">Close</button>
+                                <button type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveAdminAction()">Save changes</button>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
           <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
@@ -44,7 +105,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+          </div>
       </div>
   </section>  
   </main> 
