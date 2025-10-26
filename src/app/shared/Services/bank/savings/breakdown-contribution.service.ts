@@ -22,7 +22,7 @@ export class BreakdownContributionService {
     this.listContributionBreakdown = [];
     let year = (new Date()).getFullYear();
     let start=new Date(year,0,1);
-    let end = new Date(year,11,31);
+    let end = new Date(year,10,31);
     let weekends = [];
     let terms = 0;
 
@@ -57,7 +57,7 @@ export class BreakdownContributionService {
     let month = 0;
     let terms = 0;
 
-    for(let i = 11; month <= i; month++)
+    for(let i = 10; month <= i; month++)
     {
       var semi1 = new Date(year, month, 15);
       var semi2 = new Date(year, month+1, 0);
@@ -88,7 +88,7 @@ export class BreakdownContributionService {
     let month = 0;
     let terms = 0;
 
-    for(let i = 11; month <= i; month++)
+    for(let i = 10; month <= i; month++)
     {
       var monthly = new Date(year, month+1, 0);
       Monthly.push(new Date(monthly));

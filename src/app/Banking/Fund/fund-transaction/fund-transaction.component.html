@@ -22,13 +22,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12" *ngIf="!isCreate">
+            <div class="col-12" *ngIf="isCreate">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
                         <h5 class="card-title">New Transaction <span>| Create</span></h5>
                         <div class="col-sm-12">
                             <div class="form-floating mb-3">
-                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.userid">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.userid" required>
                                     <option  selected>Select</option>
                                     <option *ngFor="let item of admin_users"  value="{{ item.id }}">{{ item.id }} - {{ item.firstname }} {{ item.middlename }} {{ item.lastname }} </option>
                                 </select>
@@ -36,25 +36,25 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Account No." [(ngModel)]="model.amount">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Account No." [(ngModel)]="model.amount" required>
                                 <label for="floatingInput">Amount</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.transaction_type">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.transaction_type" required>
                                     <option  selected>Select</option>
                                     <option *ngFor="let item of transaction_type"  value="{{ item }}">{{ item }}</option>
                                 </select>
                                 <label for="floatingInput">Transaction Type</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.type">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.type" required>
                                     <option  selected>Select</option>
                                     <option *ngFor="let item of type"  value="{{ item }}">{{ item }}</option>
                                 </select>
                                 <label for="floatingInput">Type</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.bank_id">
+                                <select id="no_month_term" id="floatingInput" class="form-select" name="whois" [(ngModel)]="model.bank_id" required>
                                     <option  selected>Select</option>
                                     <option *ngFor="let item of banklist"  value="{{ item.id }}">[{{ item.prefix }}][{{ item.bank_type }}]{{ item.bank_name }} - [{{ item.account_no }}]</option>
                                 </select>
@@ -68,7 +68,7 @@
                             <div class="modal-footer" style="margin-top: 1%;">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="IsCreate()">Close</button>
                                 <button type="button" class="btn btn-primary" style="margin-left: 1%;" (click)="SaveAdminAction()">Save changes</button>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,20 +86,23 @@
                                     <th scope="col">Trans. Type</th>
                                     <th scope="col">Tag</th>
                                     <th scope="col">Amount</th>
-                                    <th scope="col">Notes</th>
-                                    <th scope="col">Option</th>
+                                    <!-- <th scope="col">Option</th> -->
                                     <!-- <th *ngIf="userRole" scope="col">Options</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
+                                <tr *ngFor="let item of modelList">
                                     <th scope="row">
-                                        <!-- (click)="viewBreakDown(item)" -->
                                         <button class="btn btn-sm btn-link">
-                                            WA-</button>
+                                            DA-{{ item.id | number:'3.0' }}</button>
                                     </th>
-                                    <td> item.account_no </td>
-                                    <td> </td>
+                                    <td> [{{ item.bankinfo.prefix }}][{{ item.bankinfo.bank_type }}]{{ item.bankinfo.bank_name }} - [{{ item.bankinfo.account_no }}] </td>
+                                    <td> {{ item.users.firstname }}</td>
+                                    <td>{{ item.transaction_type }}</td>
+                                    <td>{{ item.type }}</td>
+                                    <td *ngIf="item.transaction_type === 'Credit'"><span class="text-success"> + {{ item.amount | currency:'PHP' }}</span></td>
+                                    <td *ngIf="item.transaction_type === 'Debit'"><span class="text-danger"> + {{ item.amount | currency:'PHP' }}</span></td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -107,5 +110,5 @@
                 </div>
           </div>
       </div>
-  </section>  
-  </main> 
+  </section>
+  </main>
