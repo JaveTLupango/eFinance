@@ -17,4 +17,12 @@ export class FundHistoryService {
           return this.http.get<any>(apiURL,{headers});
     }
 
+    create(model : any)
+    { 
+      const headers = new HttpHeaders()
+              .set("Authorization", "Bearer "+localStorage.getItem('AuthToken'));
+      const apiURL = this.baseurl.url_api+"/fund/transaction/history/create";
+          return this.http.post<any>(apiURL,model,{headers});
+    }
+
 }
