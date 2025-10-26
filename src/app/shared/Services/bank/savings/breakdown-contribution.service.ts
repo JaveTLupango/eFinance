@@ -36,10 +36,10 @@ export class BreakdownContributionService {
     };
     weekends.forEach(a =>{
       this.modelCB = new ContributionBreakDown();
-      this.modelCB.amount = model.expectedAmountPerTerm;
+      this.modelCB.amount = model.expected_amount_per_term;
       this.modelCB.extention_fee_per_day = 10;
       this.modelCB.savings_id = model.uniqueId;
-      this.modelCB.grace_period = model.gracePeriod;
+      this.modelCB.grace_period = model.grace_period;
       terms = terms + 1;
       this.modelCB.id = terms;
       this.modelCB.term =  "Term #"+terms;
@@ -67,10 +67,10 @@ export class BreakdownContributionService {
 
     semiMonthly.forEach(a =>{
       this.modelCB = new ContributionBreakDown();
-      this.modelCB.amount = model.expectedAmountPerTerm;
+      this.modelCB.amount = model.expected_amount_per_term;
       this.modelCB.extention_fee_per_day = 10;
       this.modelCB.savings_id = model.uniqueId;
-      this.modelCB.grace_period = model.gracePeriod;
+      this.modelCB.grace_period = model.grace_period;
       terms = terms + 1;
       this.modelCB.id = terms;
       this.modelCB.term =  "Term #"+terms;
@@ -96,10 +96,10 @@ export class BreakdownContributionService {
 
     Monthly.forEach(a =>{
       this.modelCB = new ContributionBreakDown();
-      this.modelCB.amount = model.expectedAmountPerTerm;
+      this.modelCB.amount = model.expected_amount_per_term;
       this.modelCB.extention_fee_per_day = 10;
       this.modelCB.savings_id = model.uniqueId;
-      this.modelCB.grace_period = model.gracePeriod;
+      this.modelCB.grace_period = model.grace_period;
       terms = terms + 1;
       this.modelCB.id = terms;
       this.modelCB.term =  "Term #"+terms;
